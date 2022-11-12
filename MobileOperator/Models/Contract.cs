@@ -11,14 +11,22 @@ namespace MobileOperator
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class Contract
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    public class Contract
     {
+        [Key]
         public int contract_ID { get; set; }
+
         public int abonent_ID { get; set; }
+
         public int employee_ID { get; set; }
+
         public string Number_telephone { get; set; }
+
         public System.DateTime Date { get; set; }
+
         public string Date_s
         {
             get
@@ -27,10 +35,13 @@ namespace MobileOperator
             }
             set { }
         }
+
         public bool Status { get; set; }
     
         public virtual Abonent Abonent { get; set; }
+
         public virtual Employee Employee { get; set; }
+
         public virtual Number Number { get; set; }
     }
 }

@@ -41,7 +41,7 @@ namespace MobileOperator.Pages
 
             try
             {
-                if (currentRate.Rate_ID != 0)
+                if (currentRate.rate_ID != 0)
                 {
                     Context.Get().SaveChanges();
                     MessageBox.Show("Тариф отредактирован!");

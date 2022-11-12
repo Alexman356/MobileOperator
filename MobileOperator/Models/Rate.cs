@@ -11,20 +11,29 @@ namespace MobileOperator
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class Abonent
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    public class Rate
     {
-        public Abonent()
+        public Rate()
         {
-            this.Contracts = new HashSet<Contract>();
+            this.Numbers = new HashSet<Number>();
         }
+
+        [Key]
+        public short rate_ID { get; set; }
+
+        public string Name_rate { get; set; }
+
+        public short Cost { get; set; }
+
+        public short Internet { get; set; }
+
+        public short Minutes { get; set; }
+
+        public short SMS { get; set; }
     
-        public int abonent_ID { get; set; }
-        public int person_ID { get; set; }
-        public string user_login { get; set; }
-    
-        public virtual Person Person { get; set; }
-        public virtual User User { get; set; }
-        public virtual ICollection<Contract> Contracts { get; set; }
+        public virtual ICollection<Number> Numbers { get; set; }
     }
 }

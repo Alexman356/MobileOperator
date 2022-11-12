@@ -1,0 +1,92 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net6.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <UseWPF>true</UseWPF>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="Properties\Resources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="Properties\Settings.settings">
+        <Generator>SettingsSingleFileGenerator</Generator>
+        <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+      </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Resource Include="Fonts\18086.otf" />
+      <Resource Include="Fonts\Opel Sans Bold.ttf" />
+      <Resource Include="Images\back-image.jpg" />
+      <Resource Include="Images\key-icon.png" />
+      <Resource Include="Images\logo.png" />
+      <Resource Include="Images\user-icon.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Page Update="Pages\Contract\AddContract.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="Pages\Contract\ContractsPage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="Pages\Rates\AddEditRatesPage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="Pages\Rates\RatesPage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="Pages\Employees\AddEditEmployeesPage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="Pages\Employees\EmployeesPage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="Pages\Abonents\EditAbonentPage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="Pages\Abonents\AbonentsPage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="Pages\Requests\RequestsPage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="Pages\Main window\MainWindow.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="Pages\Login form\LoginForm.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ApplicationDefinition Include="Pages\App.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </ApplicationDefinition>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="MaterialDesignThemes.Wpf">
+        <HintPath>..\packages\MaterialDesignThemes.4.3.0\lib\net452\MaterialDesignThemes.Wpf.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MaterialDesignThemes" Version="4.6.1" />
+      <PackageReference Include="Microsoft.Data.SqlClient" Version="5.0.1" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Models" />
+    </ItemGroup>
+
+</Project>

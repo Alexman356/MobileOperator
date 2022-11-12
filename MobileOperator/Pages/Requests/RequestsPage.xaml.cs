@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Data.SqlClient;
 using System.Data;
+using Microsoft.Data.SqlClient;
 
 namespace MobileOperator.Pages
 {

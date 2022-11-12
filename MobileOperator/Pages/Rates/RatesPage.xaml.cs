@@ -87,7 +87,7 @@ namespace MobileOperator
             {
                 case 0:
                     {
-                        return rate.Rate_ID.ToString().Contains(text);
+                        return rate.rate_ID.ToString().Contains(text);
                     }
 
                 case 1:
@@ -124,7 +124,7 @@ namespace MobileOperator
         private DependencyObject GetItemContainer(Rate row)
         {
             var RatesForHide = Context.Get().Rates
-                .Where(rate => rate.Rate_ID == row.Rate_ID)
+                .Where(rate => rate.rate_ID == row.rate_ID)
                 .ToList()
                 .FirstOrDefault();
             var itemContainer = DGRate.ItemContainerGenerator.ContainerFromItem(RatesForHide);

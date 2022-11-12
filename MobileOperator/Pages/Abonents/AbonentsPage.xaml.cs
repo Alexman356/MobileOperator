@@ -22,16 +22,16 @@ namespace MobileOperator
                 .Where(abonent => abonentIdsForRemove.Contains(abonent.abonent_ID));
 
             IQueryable<int> personIdsForRemove = abonentsForRemove
-                .Select(abonent => abonent.person_ID);
+                .Select(abonent => abonent.PersonId);
 
             IQueryable<string> userIdsForRemove = abonentsForRemove
-                .Select(abonent => abonent.user_login);
+                .Select(abonent => abonent.UserId);
 
             IQueryable<Person> personsForRemove = Context.Get().Persons
-                .Where(person => personIdsForRemove.Contains(person.person_ID));
+                .Where(person => personIdsForRemove.Contains(person.Id));
 
             IQueryable<User> usersForRemove = Context.Get().Users
-                .Where(user => userIdsForRemove.Contains(user.Login));
+                .Where(user => userIdsForRemove.Contains(user.Id));
 
             IQueryable<Contract> contractsForRemove = Context.Get().Contracts
                 .Where(contract => abonentIdsForRemove.Contains(contract.abonent_ID));

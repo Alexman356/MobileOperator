@@ -7,24 +7,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+
 namespace MobileOperator
 {
+    using Microsoft.EntityFrameworkCore;
     using System;
     using System.Collections.Generic;
     
-    public partial class Number
+    public class Number
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Number()
         {
             this.Contracts = new HashSet<Contract>();
         }
-    
+        
+        [Key]
         public string Number_telephone { get; set; }
-        public Nullable<short> rate_ID { get; set; }
+        
+        public short rate_ID { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Contract> Contracts { get; set; }
+
         public virtual Rate Rate { get; set; }
     }
 }
