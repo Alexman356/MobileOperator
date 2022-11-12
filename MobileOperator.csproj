@@ -264,4 +264,5 @@
     </PropertyGroup>
     <Error Condition="!Exists('packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets'))" />
   </Target>
+  <Import Project="$(MSBuildProjectDirectory)\Common.props" Label="Правила и nuget-пакет StyleCop, GlobalAssemblyInfo" />
 </Project>
