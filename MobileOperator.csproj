@@ -107,6 +107,7 @@
     <Compile Include="DbModels\User.cs">
       <DependentUpon>DataBaseMobileOperator2022.tt</DependentUpon>
     </Compile>
+    <Compile Include="Encryption.cs" />
     <Compile Include="Pages\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
