@@ -30,5 +30,15 @@ namespace MobileOperator
         public virtual ICollection<Abonent> Abonents { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employee> Employees { get; set; }
+
+        public string Password
+        {
+            set
+            {
+                var encryptor = new Encryptor();
+                PasswordSalt = encryptor.GetHashSalt();
+                PasswordHash = encryptor.PasswordEncrypt(value, PasswordSalt);
+            }
+        }
     }
 }
