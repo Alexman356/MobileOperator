@@ -1,5 +1,4 @@
-﻿using MobileOperator.Pages;
-using System;
+﻿using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,37 +13,74 @@ namespace MobileOperator
             DGEmployee.ItemsSource = Context.Get().Employees.ToList();
         }
 
-        private void BtnAddEmployee_Click(object sender, RoutedEventArgs e)
+        private void BtnAddEmployeeClick(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new AddEditEmployeePage(new Employee()));
         }
 
-        private void BtnDeleteEmployee_Click(object sender, RoutedEventArgs e)
-        {/*
-            var staffForRemoving = DGStaff.SelectedItems.Cast<Staff>().ToList();
+        private void BtnEditEmployeeClick(object sender, RoutedEventArgs e)
+        {
+            if (DGEmployee.SelectedItem != null)
+            {
+                NavigationService.Navigate(new AddEditEmployeePage((Employee)DGEmployee.SelectedItem));
+            }
+            else
+            {
+                MessageBox.Show("Выберите сотрудника");
+            }
+        }
 
-            if (MessageBox.Show($"Вы точно хотите удалить следующие {staffForRemoving.Count()} элементов?", "Внимание!",
-                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+        private void BtnDeleteEmployeeClick(object sender, RoutedEventArgs e)
+        {
+            var employeeIdsForRemove = DGEmployee.SelectedItems.Cast<Employee>()
+               .Select(employee => employee.employee_ID);
+
+            IQueryable<Employee> employeesForRemove = Context.Get().Employees
+                .Where(employee => employeeIdsForRemove.Contains(employee.employee_ID));
+
+            IQueryable<int> personIdsForRemove = employeesForRemove
+                .Select(employee => employee.person_ID);
+
+            IQueryable<string> userIdsForRemove = employeesForRemove
+                .Select(employee => employee.user_login);
+
+            IQueryable<Person> personsForRemove = Context.Get().Persons
+                .Where(person => personIdsForRemove.Contains(person.person_ID));
+
+            IQueryable<User> usersForRemove = Context.Get().Users
+                .Where(user => userIdsForRemove.Contains(user.Login));
+
+            IQueryable<Contract> contractsForRemove = Context.Get().Contracts///////////////////////////////////////////
+                .Where(contract => employeeIdsForRemove.Contains(contract.employee_ID));
+
+            var dialogResult = MessageBox.Show(
+                $"Вы точно хотите удалить следующие {employeesForRemove.Count()} элементов?",
+                "Внимание!",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (dialogResult == MessageBoxResult.Yes)
             {
                 try
                 {
-                    MobileOperatorEntities.GetContext().Staff.RemoveRange(staffForRemoving);
-                    MobileOperatorEntities.GetContext().SaveChanges();
+                    foreach(var contract in contractsForRemove)
+                    {
+                        contract.employee_ID = null;
+                    }
+
+                    Context.Get().SaveChanges();
+                    Context.Get().Employees.RemoveRange(employeesForRemove);
+                    Context.Get().Persons.RemoveRange(personsForRemove);
+                    Context.Get().Users.RemoveRange(usersForRemove);
+                    Context.Get().SaveChanges();
                     MessageBox.Show("Данные успешно удалены!");
-                    DGStaff.ItemsSource = MobileOperatorEntities.GetContext().Staff.ToList();
+                    DGEmployee.ItemsSource = Context.Get().Employees.ToList();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message.ToString());
+                    MessageBox.Show(ex.Message);
                 }
-            }*/
-        }
-
-        private void BtnEditEmployee_Click(object sender, RoutedEventArgs e)
-        {
-            if (DGEmployee.SelectedItem != null)
-                NavigationService.Navigate(new AddEditEmployeePage((Employee)DGEmployee.SelectedItem));
-            else MessageBox.Show("Выберите сотрудника");
+            }
         }
 
         private void CmbBoxEmployeeSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -93,6 +129,7 @@ namespace MobileOperator
                     {
                         return employee.Person.Number_passport.Contains(text);
                     }
+
                 default:
                     {
                         return false;

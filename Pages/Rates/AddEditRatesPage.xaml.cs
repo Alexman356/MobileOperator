@@ -2,46 +2,33 @@
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Navigation;
 
-namespace MobileOperator.Pages
+namespace MobileOperator
 {
-    public partial class AddEditRatesPage : Page
+    public partial class AddEditRatesPage : Page//TODO Проверка на буквы в стоимости и т.п.
     {
-        private Rate currentRate;
+        private Rate CurrentRate;
 
         public AddEditRatesPage(Rate selectedRate)
         {
             InitializeComponent();
 
-            if (selectedRate != null)
+            if (selectedRate.Name_rate != null)
             {
                 TitleNameRate.Text = "Edit rate";
             }
 
-            currentRate = selectedRate;
-
-            DataContext = currentRate;
+            CurrentRate = selectedRate;
+            DataContext = CurrentRate;
         }
 
         private void BtnSaveRate_Click(object sender, RoutedEventArgs e)
         {
-            StringBuilder errors = new StringBuilder();
-
-            if (string.IsNullOrWhiteSpace(currentRate.Name_rate))///////////Подумать над условиями!
-            {////////////////////////
-                errors.AppendLine("DANGER Name!");////////////
-            }/////////////////////
-
-            if (errors.Length > 0)
-            {
-                MessageBox.Show(errors.ToString());
-                return;
-            }
+            CheckingEnteredData();
 
             try
             {
-                if (currentRate.Rate_ID != 0)
+                if (CurrentRate.Rate_ID != 0)
                 {
                     Context.Get().SaveChanges();
                     MessageBox.Show("Тариф отредактирован!");
@@ -49,7 +36,7 @@ namespace MobileOperator.Pages
                 }
                 else
                 {
-                    Context.Get().Rates.Add(currentRate);
+                    Context.Get().Rates.Add(CurrentRate);
                     Context.Get().SaveChanges();
                     MessageBox.Show("Тариф добавлен!");
                     NavigationService.Navigate(new RatesPage());
@@ -61,10 +48,41 @@ namespace MobileOperator.Pages
             }
         }
 
+        private void CheckingEnteredData()
+        {
+            StringBuilder errors = new StringBuilder();
+
+            if (string.IsNullOrWhiteSpace(CurrentRate.Name_rate))
+            {
+                errors.AppendLine("Incorrect name rate value entered!");
+            }
+            if (CurrentRate.Cost > 32767)
+            {
+                errors.AppendLine("Incorrect cost value entered!");
+            }
+            if (CurrentRate.Internet > 32767)
+            {
+                errors.AppendLine("Incorrect internet value entered!");
+            }
+            if (CurrentRate.Minutes > 32767)
+            {
+                errors.AppendLine("Incorrect minutes value entered!");
+            }
+            if (CurrentRate.SMS > 32767)
+            {
+                errors.AppendLine("Incorrect SMS value entered!");
+            }
+
+            if (errors.Length > 0)
+            {
+                MessageBox.Show(errors.ToString());
+                return;
+            }
+        }
+
         private void BtnBackRate_Click(object sender, RoutedEventArgs e)
         {
             Context.Set(null);
-
             NavigationService.Navigate(new RatesPage());
         }
     }

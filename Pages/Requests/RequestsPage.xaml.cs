@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Data.SqlClient;
 using System.Data;
 
-namespace MobileOperator.Pages
+namespace MobileOperator
 {
     public partial class SearchPage : Page
     {
