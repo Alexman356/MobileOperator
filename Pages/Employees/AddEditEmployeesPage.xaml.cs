@@ -1,29 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace MobileOperator.Pages
+namespace MobileOperator
 {
     public partial class AddEditEmployeePage : Page
     {
         public AddEditEmployeePage(Employee selectedEmployee)
         {
             InitializeComponent();
-            selectedEmployee.Person = new Person();
-            selectedEmployee.User = new User();
-            selectedEmployee.User.Role = "Оператор";
-            selectedEmployee.User.PasswordSalt = "123";
+
+            if (selectedEmployee.Person == null)
+            {
+                selectedEmployee.Person = new Person();
+                selectedEmployee.User = new User();
+                TitleNameEmployee.Text = "Add rate";
+                selectedEmployee.User.Role = "Оператор";
+            }
             СurrentEmployee = selectedEmployee;
             DataContext = selectedEmployee;
         }
@@ -42,7 +36,7 @@ namespace MobileOperator.Pages
 
             try
             {
-                if (СurrentEmployee.employee_ID == 0)
+                if (СurrentEmployee.employee_ID == null)
                 {
                     Context.Get().Employees.Add(СurrentEmployee);
                     Context.Get().SaveChanges();
@@ -62,6 +56,8 @@ namespace MobileOperator.Pages
             }
         }
 
+        private string date;
+
         private void CheckingEnteredData()
         {
             StringBuilder errors = new StringBuilder();
@@ -74,7 +70,7 @@ namespace MobileOperator.Pages
             {
                 errors.AppendLine("Incorrect first name value entered!");
             }
-            if (string.IsNullOrWhiteSpace(СurrentEmployee.Person.Middle_name))
+            if (СurrentEmployee.Person.Middle_name.Length > 50)
             {
                 errors.AppendLine("Incorrect middle name value entered!");
             }
@@ -85,7 +81,17 @@ namespace MobileOperator.Pages
             //if (string.IsNullOrWhiteSpace(currentSubscriber.Birthdate)) //TODO ДАВНЕШНЕЯ ПРОБЛЕМА
             //errors.AppendLine("DANGER Birthdate!");
 
+            DateTime dDate;
+            if (DateTime.TryParse(date, out dDate))
+            {
+                String.Format("{0:dd.MM.yyyy}", dDate);
 
+                СurrentEmployee.Person.Birthdate_s = date;
+            }
+            else
+            {
+                Console.WriteLine("Invalid");
+            }
 
             if (СurrentEmployee.Person.Series_passport.Length != 4)
             {
@@ -95,7 +101,15 @@ namespace MobileOperator.Pages
             {
                 errors.AppendLine("Incorrect value of the passport number has been entered!");
             }
-            if (СurrentEmployee.Person.Number_passport.Length != 6)
+            if (СurrentEmployee.Person.Address.Length > 300)
+            {
+                errors.AppendLine("Incorrect value of the address has been entered!");
+            }
+            if (СurrentEmployee.Person.Email?.Length > 100)
+            {
+                errors.AppendLine("Incorrect value of the email has been entered!");
+            }
+            if (СurrentEmployee.User.Login.Length > 50)
             {
                 errors.AppendLine("Incorrect value of the passport number has been entered!");
             }

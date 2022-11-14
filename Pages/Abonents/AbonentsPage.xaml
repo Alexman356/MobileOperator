@@ -86,7 +86,8 @@
                     AutoGenerateColumns="False"
                     VerticalGridLinesBrush="#FFABABAB" 
                     HorizontalGridLinesBrush="#FFABABAB"
-                    GridLinesVisibility="All" Background="#FFD0D4E8">
+                    GridLinesVisibility="All"
+                    Background="#FFD0D4E8">
                 <DataGrid.Resources>
                     <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                         <Setter Property="Background" Value="#FF4C4CA4" />

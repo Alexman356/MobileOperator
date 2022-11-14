@@ -220,6 +220,7 @@
                 Background="#FF38387C">
                 <TextBox
                     x:Name="TxtBoxBirhdate"
+                    Text="{Binding Person.Birthdate_s}"
                     Margin="5,0"
                     Foreground="#FFDED1D1"
                     materialDesign:HintAssist.Hint="Enter the abonent's birthdate" 

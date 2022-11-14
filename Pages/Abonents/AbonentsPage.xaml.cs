@@ -12,7 +12,7 @@ namespace MobileOperator
             InitializeComponent();
             DGAbonents.ItemsSource = Context.Get().Abonents.ToList();
         }
-         
+
         private void BtnDeleteAbonentClick(object sender, RoutedEventArgs e)
         {
             var abonentIdsForRemove = DGAbonents.SelectedItems.Cast<Abonent>()
