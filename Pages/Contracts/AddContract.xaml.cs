@@ -1,25 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Navigation;
 
-namespace MobileOperator.Pages
+namespace MobileOperator
 {
     public partial class AddContract : Page
     {
         public AddContract(Contract selectedContract)
         {
             InitializeComponent();
-            selectedContract.Number = new Number();
+
             selectedContract.Abonent = new Abonent();
-            selectedContract.Employee = new Employee();
             selectedContract.Abonent.Person = new Person();
             selectedContract.Abonent.User = new User();
-            selectedContract.Employee.employee_ID = 15;
+            selectedContract.Status = true;
+            selectedContract.employee_ID = 19; //Разграничение прав
             selectedContract.Abonent.User.Role = "Абонент";
-            selectedContract.Abonent.User.PasswordSalt = "123";
             selectedContract.Date = DateTime.Now;
             CurrentContract = selectedContract;
             DataContext = selectedContract;
@@ -35,18 +34,34 @@ namespace MobileOperator.Pages
 
         private void BtnSaveContractClick(object sender, RoutedEventArgs e)
         {
-            //CheckingEnteredData();
+            //CheckingEnteredData();//TODO
+            StringBuilder errors = new StringBuilder();
 
             try
             {
                 Context.Get().Contracts.Add(CurrentContract);
                 Context.Get().SaveChanges();
                 MessageBox.Show("Новый договор добавлен");
-                NavigationService.Navigate(new ContractsPage());
+
+                var numberPhone = Context.Get().Numbers
+                    .Where(number => number.Number_telephone == CurrentContract.Number_telephone)
+                    .SingleOrDefault();
+
+                NavigationService.Navigate(new ChooseRateForContract(numberPhone));
             }
-            catch (Exception ex)
+            catch (DbEntityValidationException ex)
             {
-                MessageBox.Show(ex.Message);
+                foreach (DbEntityValidationResult validationError in ex.EntityValidationErrors)
+                {
+                    errors.AppendLine("Object: " + validationError.Entry.Entity.ToString());
+
+                    foreach (DbValidationError err in validationError.ValidationErrors)
+                    {
+                        errors.AppendLine(err.ErrorMessage + " ");
+                    }
+                }
+
+                MessageBox.Show(errors.ToString());
             }
             /*StringBuilder errors = new StringBuilder();
 

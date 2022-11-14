@@ -46,11 +46,31 @@
                             BorderBrush="#DDA0A0A0">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon 
-                                    Kind="StickerTextOutline" 
+                                    Kind="StickerPlusOutline" 
                                     Margin="0,3,10,0"
                                     Foreground="#FFD1D1EE"/>
                                 <TextBlock 
-                                    Text="Add data" 
+                                    Text="New contract" 
+                                    HorizontalAlignment="Right"/>
+                            </StackPanel>
+                        </Button>
+                    </Border>
+                    <Border Margin="0,0,10,0">
+                        <Button
+                            x:Name="AddNumber"
+                            Click="AddNumberClick"
+                            Background="#FF41419E" 
+                            FontFamily="Microsoft YaHei UI Light" 
+                            FontSize="17" 
+                            Foreground="#DDFFFFFF"
+                            BorderBrush="#DDA0A0A0">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon 
+                                    Kind="PhonePlusOutline" 
+                                    Margin="0,3,10,0"
+                                    Foreground="#FFD1D1EE"/>
+                                <TextBlock 
+                                    Text="Add number" 
                                     HorizontalAlignment="Right"/>
                             </StackPanel>
                         </Button>
@@ -70,7 +90,7 @@
                                     Margin="0,3,10,0"
                                     Foreground="#FFD1D1EE"/>
                                 <TextBlock 
-                                    Text="Delete data" 
+                                    Text="Delete contract" 
                                     HorizontalAlignment="Right"/>
                             </StackPanel>
                         </Button>

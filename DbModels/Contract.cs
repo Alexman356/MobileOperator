@@ -16,7 +16,7 @@ namespace MobileOperator
     {
         public int contract_ID { get; set; }
         public int abonent_ID { get; set; }
-        public int employee_ID { get; set; }
+        public int? employee_ID { get; set; }
         public string Number_telephone { get; set; }
         public System.DateTime Date { get; set; }
         public string Date_s

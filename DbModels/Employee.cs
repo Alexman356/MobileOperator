@@ -9,7 +9,7 @@ namespace MobileOperator
             Contracts = new HashSet<Contract>();
         }
     
-        public int employee_ID { get; set; }
+        public int? employee_ID { get; set; }
         public int person_ID { get; set; }
         public string user_login { get; set; }
         public string Number_telephone { get; set; }

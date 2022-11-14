@@ -1,7 +1,5 @@
-﻿using MobileOperator.Pages;
-using System;
+﻿using System;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -21,26 +19,37 @@ namespace MobileOperator
             NavigationService?.Navigate(new AddContract(new Contract()));
         }
 
-        private void BtnDelContractClick(object sender, RoutedEventArgs e)
-        {/*
-            var applicationForRemoving = DGApplication.SelectedItems.Cast<Application>().ToList();
+        private void AddNumberClick(object sender, RoutedEventArgs e)
+        {
+            NavigationService?.Navigate(new ChooseAbonentForNumber(new Contract()));
+        }
 
-            if (MessageBox.Show($"Вы точно хотите удалить следующие {applicationForRemoving.Count()} элементов?", "Внимание!",
-                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+        private void BtnDelContractClick(object sender, RoutedEventArgs e)
+        {
+            var contractsForRemove = DGContract.SelectedItems.Cast<Contract>().ToList();
+
+            var dialogResult = MessageBox.Show(
+                $"Вы точно хотите удалить следующие {contractsForRemove.Count()} элементов?",
+                "Внимание!",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (dialogResult == MessageBoxResult.Yes)
             {
                 try
                 {
-                    MobileOperatorEntities.GetContext().Applications.RemoveRange(applicationForRemoving);
-                    MobileOperatorEntities.GetContext().SaveChanges();
+                    Context.Get().Contracts.RemoveRange(contractsForRemove);
+                    Context.Get().SaveChanges();
                     MessageBox.Show("Данные успешно удалены!");
-                    DGApplication.ItemsSource = MobileOperatorEntities.GetContext().Staff.ToList();
+                    DGContract.ItemsSource = Context.Get().Contracts.ToList();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message.ToString());
+                    MessageBox.Show(ex.Message);
                 }
-            }*/
+            }
         }
+
         private void CmbBoxContractSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (CmbBoxContract.SelectedIndex != -1)
@@ -51,7 +60,6 @@ namespace MobileOperator
 
         private void TxtBoxSearchContract(object sender, TextChangedEventArgs e)
         {
-            
             if (CmbBoxContract.SelectedIndex == -1)
             {
                 MessageBox.Show("Выберите фильтр поиска!");
@@ -72,7 +80,7 @@ namespace MobileOperator
             }
         }
 
-        private bool RowIsContainsText(Contract contract, string text)
+        private bool RowIsContainsText(Contract contract, string text)//TODO Добавить еще условий
         {
             switch (CmbBoxContract.SelectedIndex)
             {

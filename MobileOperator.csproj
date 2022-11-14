@@ -107,12 +107,19 @@
     <Compile Include="DbModels\User.cs">
       <DependentUpon>DataBaseMobileOperator2022.tt</DependentUpon>
     </Compile>
+    <Compile Include="Encryptor.cs" />
     <Compile Include="Pages\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Pages\Contract\AddContract.xaml.cs">
+    <Compile Include="Pages\Contracts\AddContract.xaml.cs">
       <DependentUpon>AddContract.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Contracts\ChooseAbonentForNumber.xaml.cs">
+      <DependentUpon>ChooseAbonentForNumber.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Contracts\ChooseRateForContract.xaml.cs">
+      <DependentUpon>ChooseRateForContract.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Login form\LoginForm.xaml.cs">
       <DependentUpon>LoginForm.xaml</DependentUpon>
@@ -130,7 +137,7 @@
     <Compile Include="Pages\Abonents\EditAbonentPage.xaml.cs">
       <DependentUpon>EditAbonentPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Contract\ContractsPage.xaml.cs">
+    <Compile Include="Pages\Contracts\ContractsPage.xaml.cs">
       <DependentUpon>ContractsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Rates\RatesPage.xaml.cs">
@@ -145,7 +152,15 @@
     <Compile Include="Pages\Abonents\AbonentsPage.xaml.cs">
       <DependentUpon>AbonentsPage.xaml</DependentUpon>
     </Compile>
-    <Page Include="Pages\Contract\AddContract.xaml">
+    <Page Include="Pages\Contracts\AddContract.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Contracts\ChooseAbonentForNumber.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Contracts\ChooseRateForContract.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -169,7 +184,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Contract\ContractsPage.xaml">
+    <Page Include="Pages\Contracts\ContractsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -189,8 +204,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\Users\EditUserPage.xaml" />
+    <Page Include="Pages\Users\UserPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Pages\Users\EditUserPage.xaml.cs">
+      <DependentUpon>EditUserPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Users\UserPage.xaml.cs">
+      <DependentUpon>UserPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -229,9 +255,7 @@
     <Resource Include="Images\logo.png" />
     <Resource Include="Images\user-icon.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pages\Users\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ApplicationDefinition Include="Pages\App.xaml">
       <Generator>MSBuild:Compile</Generator>

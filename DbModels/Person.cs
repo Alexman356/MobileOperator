@@ -34,11 +34,10 @@ namespace MobileOperator
             }
             set 
             {
-                value += "01.01.1900";
-                Birthdate = new DateTime(
-                    int.Parse(value.Substring(6, 4)),
-                    int.Parse(value.Substring(3, 2)),
-                    int.Parse(value.Substring(0, 2)));
+                if (DateTime.TryParse(value, out DateTime dDate))
+                {
+                    Birthdate = dDate;
+                }
             }
         }
         public string Gender { get; set; }
