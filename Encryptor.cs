@@ -30,8 +30,8 @@ namespace MobileOperator
             Random rand = new Random();
 
             string str = "abcdefghijklmnopqrstuvwxyz" +
-                "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
-                "0123456789";
+                         "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+                         "0123456789";
 
             string salt = "";
 
