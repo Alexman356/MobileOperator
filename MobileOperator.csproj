@@ -107,6 +107,16 @@
     <Compile Include="DbModels\User.cs">
       <DependentUpon>DataBaseMobileOperator2022.tt</DependentUpon>
     </Compile>
+    <Compile Include="Generator\EntityGenerator.cs" />
+    <Compile Include="Generator\EntityDataGenerators\EmployeesDataGenerator.cs" />
+    <Compile Include="Generator\EntityDataGenerators\IEntityDataGenerator.cs" />
+    <Compile Include="Generator\EntityDataGenerators\PersonsDataGenerator.cs" />
+    <Compile Include="Generator\EntityDataGenerators\PhoneNumbersDataGenerator.cs" />
+    <Compile Include="Generator\EntityDataGenerators\UsersDataGenerator.cs" />
+    <Compile Include="Generator\Factories\EntityDataGeneratorFactory.cs" />
+    <Compile Include="Generator\Factories\IEntityDataGeneratorFactory.cs" />
+    <Compile Include="Generator\IEntity.cs" />
+    <Compile Include="Generator\Commands\AddUniqueRandomDataCommand.cs" />
     <Compile Include="Encryptor.cs" />
     <Compile Include="Pages\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -255,7 +265,6 @@
     <Resource Include="Images\logo.png" />
     <Resource Include="Images\user-icon.png" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ApplicationDefinition Include="Pages\App.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -279,6 +288,9 @@
       <DependentUpon>DataBaseMobileOperator2022.edmx</DependentUpon>
       <LastGenOutput>DataBaseMobileOperator2022.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Bogus" Version="34.0.2" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets" Condition="Exists('packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets')" />

@@ -219,7 +219,7 @@
                     Width="100"/>
                     <DataGridTextColumn 
                     Header="Telephone"
-                    Binding="{Binding Number_telephone}"
+                    Binding="{Binding Salary}"
                     Width="100"/>
                     <DataGridTextColumn 
                     Header="Post"

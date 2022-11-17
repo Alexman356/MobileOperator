@@ -31,8 +31,8 @@
           <Property Name="employee_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="person_ID" Type="int" Nullable="false" />
           <Property Name="user_login" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Number_telephone" Type="nvarchar" MaxLength="12" Nullable="false" />
-          <Property Name="Post" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Salary" Type="int" Nullable="false" />
+          <Property Name="Post" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="Numbers">
           <Key>
@@ -261,8 +261,8 @@
           <Property Name="employee_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="person_ID" Type="Int32" Nullable="false" />
           <Property Name="user_login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Number_telephone" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Post" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Salary" Type="Int32" Nullable="false" />
+          <Property Name="Post" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Contracts" Relationship="Self.FK_Contracts_Employees" FromRole="Employees" ToRole="Contracts" />
           <NavigationProperty Name="Person" Relationship="Self.FK_Employees_Persons" FromRole="Employees" ToRole="Persons" />
           <NavigationProperty Name="User" Relationship="Self.FK_Employees_Users" FromRole="Employees" ToRole="Users" />
@@ -497,7 +497,7 @@
                 <ScalarProperty Name="employee_ID" ColumnName="employee_ID" />
                 <ScalarProperty Name="person_ID" ColumnName="person_ID" />
                 <ScalarProperty Name="user_login" ColumnName="user_login" />
-                <ScalarProperty Name="Number_telephone" ColumnName="Number_telephone" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
                 <ScalarProperty Name="Post" ColumnName="Post" />
               </MappingFragment>
             </EntityTypeMapping>
