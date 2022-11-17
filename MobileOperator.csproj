@@ -132,6 +132,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Pages\PagesModel.cs" />
     <Compile Include="Pages\Rates\AddEditRatesPage.xaml.cs">
       <DependentUpon>AddEditRatesPage.xaml</DependentUpon>
     </Compile>

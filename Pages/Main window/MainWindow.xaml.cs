@@ -3,12 +3,28 @@ using System.Windows.Input;
 
 namespace MobileOperator
 {
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainWindow"/> class.
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
+            Pages = new PagesModel // TODO get from login window
+            {
+                Abonents = new AbonentsPage(),
+                Contracts = new ContractsPage(),
+                Employees = new EmployeesPage(),
+                Rates = new RatesPage(),
+                User = new UserPage(),
+            };
         }
+
+        private PagesModel Pages { get; }
 
         private void BtnExit_Click(object sender, RoutedEventArgs e)
         {
@@ -30,32 +46,27 @@ namespace MobileOperator
 
         private void BtnAbonentsClick(object sender, RoutedEventArgs e)
         {
-            PageStart.Content = new AbonentsPage();
+            PageStart.Content = Pages.Abonents;
         }
 
         private void BtnRatesClick(object sender, RoutedEventArgs e)
         {
-            PageStart.Content = new RatesPage();
+            PageStart.Content = Pages.Rates;
         }
 
         private void BtnEmployeesClick(object sender, RoutedEventArgs e)
         {
-            PageStart.Content = new EmployeesPage();
+            PageStart.Content = Pages.Employees;
         }
 
         private void BtnContractsClick(object sender, RoutedEventArgs e)
         {
-            PageStart.Content = new ContractsPage();
-        }
-
-        private void BtnSearchClick(object sender, RoutedEventArgs e)
-        {
-            PageStart.Content = new SearchPage();
+            PageStart.Content = Pages.Contracts;
         }
 
         private void BtnSecurityClick(object sender, RoutedEventArgs e)
         {
-            PageStart.Content = new UserPage();
+            PageStart.Content = Pages.User;
         }
 
         private void BtnInfoClick(object sender, RoutedEventArgs e)

@@ -9,10 +9,9 @@ namespace MobileOperator
     {
         private Rate CurrentRate;
 
-        public AddEditRatesPage(Rate selectedRate)
+        public AddEditRatesPage(RatesPage ratesPage, Rate selectedRate)
         {
             InitializeComponent();
-
             if (selectedRate.Name_rate != null)
             {
                 TitleNameRate.Text = "Edit rate";
@@ -20,8 +19,11 @@ namespace MobileOperator
 
             CurrentRate = selectedRate;
             DataContext = CurrentRate;
+            RatesPage = ratesPage;
             Validator = new Validator();
         }
+
+        private RatesPage RatesPage { get; set; }
 
         private Validator Validator { get; }
 
@@ -38,20 +40,26 @@ namespace MobileOperator
                 {
                     Context.Get().SaveChanges();
                     MessageBox.Show("Тариф отредактирован!");
-                    NavigationService.Navigate(new RatesPage());
+                    GoToRatesPage();
                 }
                 else
                 {
                     Context.Get().Rates.Add(CurrentRate);
                     Context.Get().SaveChanges();
                     MessageBox.Show("Тариф добавлен!");
-                    NavigationService.Navigate(new RatesPage());
+                    GoToRatesPage();
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void GoToRatesPage()
+        {
+            RatesPage = new RatesPage();
+            NavigationService.Navigate(RatesPage);
         }
 
         private void BtnBackRateClick(object sender, RoutedEventArgs e)
