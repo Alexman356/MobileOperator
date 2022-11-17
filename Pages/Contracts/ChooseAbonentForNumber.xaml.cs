@@ -5,9 +5,6 @@ using System.Windows.Controls;
 
 namespace MobileOperator
 {
-    /// <summary>s
-    /// Логика взаимодействия для ChooseAbonentForNumber.xaml
-    /// </summary>
     public partial class ChooseAbonentForNumber : Page
     {
         public ChooseAbonentForNumber(Contract selectedContract)
@@ -16,7 +13,7 @@ namespace MobileOperator
             DGAbonents.ItemsSource = Context.Get().Abonents.ToList();
             
             selectedContract.Status = true;
-            selectedContract.employee_ID = 20; //Разграничение прав
+            selectedContract.employee_ID = EmployeeIdentity.employee_ID; //TODO Разграничение прав
             selectedContract.Date = DateTime.Now;
             CurrentContract = selectedContract;
             DataContext = selectedContract;
@@ -35,6 +32,20 @@ namespace MobileOperator
 
         private void BtnSaveContractClick(object sender, RoutedEventArgs e)
         {
+            if (DGAbonents.SelectedItem == null)
+            {
+                MessageBox.Show("The abonent was not selected!");
+
+                return;
+            }
+
+            if (DGNumbers.SelectedItem == null)
+            {
+                MessageBox.Show("The number was not selected!");
+
+                return;
+            }
+
             var abonent = (Abonent)DGAbonents.SelectedItem;
             CurrentContract.abonent_ID = abonent.abonent_ID;
 
@@ -43,11 +54,10 @@ namespace MobileOperator
 
             Context.Get().Contracts.Add(CurrentContract);
             Context.Get().SaveChanges();
-            MessageBox.Show("Новый номер добавлен!");
+            MessageBox.Show("New number added!");
 
             var numberPhone = Context.Get().Numbers
-                    .Where(numberTel => numberTel.Number_telephone == CurrentContract.Number_telephone)
-                    .SingleOrDefault();
+                .SingleOrDefault(numberTel => numberTel.Number_telephone == CurrentContract.Number_telephone);
 
             NavigationService.Navigate(new ChooseRateForContract(numberPhone));
         }

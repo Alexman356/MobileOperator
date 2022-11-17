@@ -17,14 +17,26 @@ namespace MobileOperator
             selectedContract.Abonent.Person = new Person();
             selectedContract.Abonent.User = new User();
             selectedContract.Status = true;
-            selectedContract.employee_ID = 19; //Разграничение прав
+            selectedContract.employee_ID = EmployeeIdentity.employee_ID;
             selectedContract.Abonent.User.Role = "Абонент";
             selectedContract.Date = DateTime.Now;
+
             CurrentContract = selectedContract;
             DataContext = selectedContract;
+            Validator = new Validator();
+
+            IQueryable<string> numbersForHide = Context.Get().Contracts
+               .Select(contract => contract.Number_telephone);
+
+            IQueryable<Number> numberForShow = Context.Get().Numbers
+                .Where(number => !numbersForHide.Contains(number.Number_telephone));
+
+            DGNumbers.ItemsSource = numberForShow.ToList();
         }
 
-        private Contract CurrentContract { get; set; }
+        private Validator Validator { get; }
+
+        private Contract CurrentContract { get; }
 
         private void BtnBackPageClick(object sender, RoutedEventArgs e)
         {
@@ -34,8 +46,24 @@ namespace MobileOperator
 
         private void BtnSaveContractClick(object sender, RoutedEventArgs e)
         {
-            //CheckingEnteredData();//TODO
-            StringBuilder errors = new StringBuilder();
+            if (!IsTextBoxNull()
+                || !Validator.IsValidPersonData(CurrentContract.Abonent.Person)
+                || !IsSelectIndexCmbBox())
+            {
+                return;
+            }
+
+            SetAbonentGenderFromCmb();
+
+            if (DGNumbers.SelectedItem == null)
+            {
+                MessageBox.Show("The number telephone was not selected!");
+
+                return;
+            }
+
+            var numberSelected = DGNumbers.SelectedItem as Number;
+            CurrentContract.Number_telephone = numberSelected.Number_telephone;
 
             try
             {
@@ -44,54 +72,65 @@ namespace MobileOperator
                 MessageBox.Show("Новый договор добавлен");
 
                 var numberPhone = Context.Get().Numbers
-                    .Where(number => number.Number_telephone == CurrentContract.Number_telephone)
-                    .SingleOrDefault();
+                    .SingleOrDefault(number => number.Number_telephone == CurrentContract.Number_telephone);
 
                 NavigationService.Navigate(new ChooseRateForContract(numberPhone));
             }
-            catch (DbEntityValidationException ex)
-            {
-                foreach (DbEntityValidationResult validationError in ex.EntityValidationErrors)
-                {
-                    errors.AppendLine("Object: " + validationError.Entry.Entity.ToString());
-
-                    foreach (DbValidationError err in validationError.ValidationErrors)
-                    {
-                        errors.AppendLine(err.ErrorMessage + " ");
-                    }
-                }
-
-                MessageBox.Show(errors.ToString());
-            }
-            /*StringBuilder errors = new StringBuilder();
-
-            if (currentApplication.Employee_ID == Guid.Empty)
-                errors.AppendLine("DANGER Employee!");
-            if (currentApplication.Rate_ID == Guid.Empty)
-                errors.AppendLine("DANGER Rate!");
-            if (currentApplication.Subscriber_ID == Guid.Empty)
-                errors.AppendLine("DANGER Subscriber!");
-
-            if (errors.Length > 0)
-            {
-                MessageBox.Show(errors.ToString());
-                return;
-            }
-
-            currentApplication.SubApplication_ID = Guid.NewGuid();
-            currentApplication.DateOfApplication = DateTime.Now;
-
-            try
-            {
-                MobileOperatorEntities.GetContext().Applications.Add(currentApplication);
-                MobileOperatorEntities.GetContext().SaveChanges();
-                MessageBox.Show("Заявка добавлена!");
-                NavigationService.Navigate(new Applications());
-            }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message.ToString());
-            }*/
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private bool IsSelectIndexCmbBox()
+        {
+            if (CmbBoxGender.SelectedIndex == -1)
+            {
+                MessageBox.Show("The gender was not selected!");
+
+                return false;
+            }
+
+            return true;
+        }
+
+        private void SetAbonentGenderFromCmb()
+        {
+            switch (CmbBoxGender.SelectedIndex)
+            {
+                case 0:
+                    {
+                        CurrentContract.Abonent.Person.Gender = "Мужской";
+
+                        break;
+                    }
+
+                case 1:
+                    {
+                        CurrentContract.Abonent.Person.Gender = "Женский";
+
+                        break;
+                    }
+            }
+        }
+
+        private bool IsTextBoxNull()
+        {
+            if (string.IsNullOrWhiteSpace(TxtBoxLastName.Text)
+                || string.IsNullOrWhiteSpace(TxtBoxFirstName.Text)
+                || string.IsNullOrWhiteSpace(TxtBoxBirthdate.Text)
+                || string.IsNullOrWhiteSpace(TxtBoxSerPas.Text)
+                || string.IsNullOrWhiteSpace(TxtBoxNumPas.Text)
+                || string.IsNullOrWhiteSpace(TxtBoxAddress.Text)
+                || string.IsNullOrWhiteSpace(TxtBoxLogin.Text)
+                || string.IsNullOrWhiteSpace(TxtBoxPass.Text))
+            {
+                MessageBox.Show("Not all fields are filled in!");
+
+                return false;
+            }
+
+            return true;
         }
     }
 }

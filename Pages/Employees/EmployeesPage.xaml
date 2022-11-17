@@ -218,8 +218,8 @@
                     Binding="{Binding Person.Email}"
                     Width="100"/>
                     <DataGridTextColumn 
-                    Header="Telephone"
-                    Binding="{Binding Number_telephone}"
+                    Header="Salary"
+                    Binding="{Binding Salary}"
                     Width="100"/>
                     <DataGridTextColumn 
                     Header="Post"

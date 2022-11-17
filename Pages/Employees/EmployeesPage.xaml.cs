@@ -50,7 +50,7 @@ namespace MobileOperator
             IQueryable<User> usersForRemove = Context.Get().Users
                 .Where(user => userIdsForRemove.Contains(user.Login));
 
-            IQueryable<Contract> contractsForRemove = Context.Get().Contracts///////////////////////////////////////////
+            IQueryable<Contract> contractsForRemove = Context.Get().Contracts//TODO
                 .Where(contract => employeeIdsForRemove.Contains(contract.employee_ID));
 
             var dialogResult = MessageBox.Show(

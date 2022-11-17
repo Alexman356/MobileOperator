@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -15,30 +14,38 @@ namespace MobileOperator
             {
                 selectedEmployee.Person = new Person();
                 selectedEmployee.User = new User();
-                TitleNameEmployee.Text = "Add rate";
-                selectedEmployee.User.Role = "Оператор";
+                TitleNameEmployee.Text = "Add employee";
             }
-            СurrentEmployee = selectedEmployee;
+
+            Validator = new Validator();
+            CurrentEmployee = selectedEmployee;
             DataContext = selectedEmployee;
+
+            InitCmb();
         }
 
-        private Employee СurrentEmployee { get; set; }
+        private Validator Validator { get; }
 
-        private void BtnBackPage_Click(object sender, RoutedEventArgs e)
-        {
-            Context.Set(null);
-            NavigationService.Navigate(new EmployeesPage());
-        }
+        private Employee CurrentEmployee { get; }
 
-        private void BtnSaveEmployee_Click(object sender, RoutedEventArgs e)
+        private void BtnSaveEmployeeClick(object sender, RoutedEventArgs e)
         {
-            CheckingEnteredData();
+            if (!IsTextBoxNull()
+                || !Validator.IsValidPersonData(CurrentEmployee.Person)
+                || !Validator.IsValidEmployeeData(CurrentEmployee)
+                || !IsSelectIndexCmbBox())
+            {
+                return;
+            }
+
+
+            SetEmployeeDataFromCmb();
 
             try
             {
-                if (СurrentEmployee.employee_ID == null)
+                if (CurrentEmployee.employee_ID == null)
                 {
-                    Context.Get().Employees.Add(СurrentEmployee);
+                    Context.Get().Employees.Add(CurrentEmployee);
                     Context.Get().SaveChanges();
                     MessageBox.Show("Новый сотрудник добавлен");
                     NavigationService.Navigate(new EmployeesPage());
@@ -56,68 +63,147 @@ namespace MobileOperator
             }
         }
 
-        private string date;
-
-        private void CheckingEnteredData()
+        private void BtnBackPageClick(object sender, RoutedEventArgs e)
         {
-            StringBuilder errors = new StringBuilder();
+            Context.Set(null);
+            NavigationService.Navigate(new EmployeesPage());
+        }
 
-            if (string.IsNullOrWhiteSpace(СurrentEmployee.Person.Last_name))
+        private bool IsSelectIndexCmbBox()
+        {
+            if (CmbBoxGender.SelectedIndex == -1)
             {
-                errors.AppendLine("Incorrect last name value entered!");
-            }
-            if (string.IsNullOrWhiteSpace(СurrentEmployee.Person.First_name))
-            {
-                errors.AppendLine("Incorrect first name value entered!");
-            }
-            if (СurrentEmployee.Person.Middle_name.Length > 50)
-            {
-                errors.AppendLine("Incorrect middle name value entered!");
-            }
-            if (string.IsNullOrWhiteSpace(СurrentEmployee.Person.Gender))
-            {
-                errors.AppendLine("Incorrect middle name value entered!");
-            }
-            //if (string.IsNullOrWhiteSpace(currentSubscriber.Birthdate)) //TODO ДАВНЕШНЕЯ ПРОБЛЕМА
-            //errors.AppendLine("DANGER Birthdate!");
+                MessageBox.Show("The gender was not selected!");
 
-            DateTime dDate;
-            if (DateTime.TryParse(date, out dDate))
-            {
-                String.Format("{0:dd.MM.yyyy}", dDate);
-
-                СurrentEmployee.Person.Birthdate_s = date;
-            }
-            else
-            {
-                Console.WriteLine("Invalid");
+                return false;
             }
 
-            if (СurrentEmployee.Person.Series_passport.Length != 4)
+            if (CmbBoxPost.SelectedIndex == -1)
             {
-                errors.AppendLine("Incorrect value of the passport series has been entered!");
-            }
-            if (СurrentEmployee.Person.Number_passport.Length != 6)
-            {
-                errors.AppendLine("Incorrect value of the passport number has been entered!");
-            }
-            if (СurrentEmployee.Person.Address.Length > 300)
-            {
-                errors.AppendLine("Incorrect value of the address has been entered!");
-            }
-            if (СurrentEmployee.Person.Email?.Length > 100)
-            {
-                errors.AppendLine("Incorrect value of the email has been entered!");
-            }
-            if (СurrentEmployee.User.Login.Length > 50)
-            {
-                errors.AppendLine("Incorrect value of the passport number has been entered!");
+                MessageBox.Show("The post was not selected!");
+
+                return false;
             }
 
-            if (errors.Length > 0)
+            return true;
+        }
+
+        private void SetEmployeeDataFromCmb()
+        {
+            switch (CmbBoxGender.SelectedIndex)
             {
-                MessageBox.Show(errors.ToString());
-                return;
+                case 0:
+                {
+                    CurrentEmployee.Person.Gender = "Мужской";
+
+                    break;
+                }
+
+                case 1:
+                {
+                    CurrentEmployee.Person.Gender = "Женский";
+
+                    break;
+                }
+            }
+
+            switch (CmbBoxPost.SelectedIndex)
+            {
+                case 0:
+                {
+                    CurrentEmployee.Post = "Онлайн консультант";
+                    CurrentEmployee.User.Role = "Оператор";
+
+                    break;
+                }
+
+                case 1:
+                {
+                    CurrentEmployee.Post = "Оператор";
+                    CurrentEmployee.User.Role = "Оператор";
+
+                    break;
+                }
+
+                case 2:
+                {
+                    CurrentEmployee.Post = "Менеджер";
+                    CurrentEmployee.User.Role = "Оператор";
+
+                    break;
+                }
+
+                case 3:
+                {
+                    CurrentEmployee.Post = "Администратор";
+                    CurrentEmployee.User.Role = "Администратор";
+
+                    break;
+                }
+            }
+        }
+
+        private bool IsTextBoxNull()
+        {
+            if (string.IsNullOrWhiteSpace(TxtBoxLastName.Text)
+                || string.IsNullOrWhiteSpace(TxtBoxFirstName.Text)
+                || string.IsNullOrWhiteSpace(TxtBoxBirthdate.Text)
+                || string.IsNullOrWhiteSpace(TxtBoxSerPas.Text)
+                || string.IsNullOrWhiteSpace(TxtBoxNumPas.Text)
+                || string.IsNullOrWhiteSpace(TxtBoxAddress.Text)
+                || string.IsNullOrWhiteSpace(TxtBoxSalary.Text)
+                || string.IsNullOrWhiteSpace(TxtBoxLogin.Text)
+                || string.IsNullOrWhiteSpace(TxtBoxPass.Text))
+            {
+                MessageBox.Show("Not all fields are filled in!");
+
+                return false;
+            }
+
+            return true;
+        }
+
+        private void InitCmb()
+        {
+            if (CurrentEmployee.Person.Gender == "Мужской")
+            {
+                CmbBoxGender.SelectedIndex = 0;
+            }
+
+            if (CurrentEmployee.Person.Gender == "Женский")
+            {
+                CmbBoxGender.SelectedIndex = 1;
+            }
+
+            switch (CurrentEmployee.Post)
+            {
+                case "Онлайн консультант":
+                    {
+                        CmbBoxPost.SelectedIndex = 0;
+
+                        break;
+                    }
+
+                case "Оператор":
+                    {
+                        CmbBoxPost.SelectedIndex = 1;
+
+                        break;
+                    }
+
+                case "Менеджер":
+                    {
+                        CmbBoxPost.SelectedIndex = 2;
+
+                        break;
+                    }
+
+                case "Администратор":
+                    {
+                        CmbBoxPost.SelectedIndex = 3;
+
+                        break;
+                    }
             }
         }
     }

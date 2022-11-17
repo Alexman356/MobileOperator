@@ -12,7 +12,7 @@ namespace MobileOperator
         public int? employee_ID { get; set; }
         public int person_ID { get; set; }
         public string user_login { get; set; }
-        public string Number_telephone { get; set; }
+        public int Salary { get; set; }
         public string Post { get; set; }
     
         public virtual ICollection<Contract> Contracts { get; set; }

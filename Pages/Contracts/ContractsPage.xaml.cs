@@ -24,9 +24,31 @@ namespace MobileOperator
             NavigationService?.Navigate(new ChooseAbonentForNumber(new Contract()));
         }
 
+        private void EditRateClick(object sender, RoutedEventArgs e)
+        {
+            if (DGContract.SelectedItem == null)
+            {
+                MessageBox.Show("The contract was not selected!");
+
+                return;
+            }
+
+            var selectedNumber = DGContract.SelectedItem as Contract;
+            var numberToChange = Context.Get().Numbers
+                .Single(number => number.Number_telephone == selectedNumber.Number_telephone);
+
+            NavigationService?.Navigate(new ChooseRateForContract(numberToChange));
+        }
+
         private void BtnDelContractClick(object sender, RoutedEventArgs e)
         {
             var contractsForRemove = DGContract.SelectedItems.Cast<Contract>().ToList();
+            if (DGContract.SelectedItem == null)
+            {
+                MessageBox.Show("The contract for remove was not selected!");
+
+                return;
+            }
 
             var dialogResult = MessageBox.Show(
                 $"Вы точно хотите удалить следующие {contractsForRemove.Count()} элементов?",
@@ -137,5 +159,13 @@ namespace MobileOperator
             return itemContainer;
         }
 
+        private void DGContractCellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            var selectedContract = DGContract.SelectedItem as Contract;
+            var contractToChange = Context.Get().Contracts
+                .Single(contract => contract.contract_ID == selectedContract.contract_ID);
+            contractToChange.Status = !contractToChange.Status;
+            Context.Get().SaveChanges();
+        }
     }
 }

@@ -112,7 +112,7 @@
         </Grid>
         <Grid Grid.Column="2" Grid.Row="4">
             <TextBlock 
-                Text="Number telephone"
+                Text="Salary"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 FontSize="16"
@@ -128,6 +128,25 @@
                 FontFamily="Microsoft YaHei UI Light"
                 Foreground="#FFE5E5F0" Margin="64,21,64,9"/>
         </Grid>
+        <Grid Grid.Column="2" Grid.Row="6">
+            <TextBlock 
+                Text="Login"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontFamily="Microsoft YaHei UI Light"
+                Foreground="#FFE5E5F0" Margin="10,21,10,9"/>
+        </Grid>
+        <Grid Grid.Column="2" Grid.Row="7">
+            <TextBlock 
+                x:Name="TbPass"
+                Text="Password"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontFamily="Microsoft YaHei UI Light"
+                Foreground="#FFE5E5F0" Margin="45,21,45,9"/>
+        </Grid>
 
         <Grid Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="3">
             <Border Margin="0,-65,0,24">
@@ -135,7 +154,7 @@
                     <Border Margin="0,0,10,0">
                         <Button
                             x:Name="BtnBackPage"
-                            Click="BtnBackPage_Click"
+                            Click="BtnBackPageClick"
                             Background="#FF41419E" 
                             FontFamily="Microsoft YaHei UI Light" 
                             FontSize="17" 
@@ -155,7 +174,7 @@
                     <Border Margin="0,0,10,0">
                         <Button
                             x:Name="BtnSaveEmployee"
-                            Click="BtnSaveEmployee_Click"
+                            Click="BtnSaveEmployeeClick"
                             Background="#FF41419E" 
                             FontFamily="Microsoft YaHei UI Light" 
                             FontSize="17" 
@@ -189,11 +208,11 @@
         </Grid>
         <Grid Grid.Column="1" Grid.Row="2">
             <Border
-                x:Name="TxtBoxLastName"
                 CornerRadius="5"
                 Margin="0,10,10,0" 
                 Background="#FF38387C">
                 <TextBox
+                    x:Name="TxtBoxLastName"
                     DataContext="{Binding Person}"
                     Text="{Binding Last_name}"
                     Margin="5,0"
@@ -205,86 +224,96 @@
         </Grid>
         <Grid Grid.Column="1" Grid.Row="3">
             <Border
-                x:Name="TxtBoxFirstName"
                 CornerRadius="5"
                 Margin="0,10,10,0" 
                 Background="#FF38387C">
                 <TextBox
-                Text="{Binding Person.First_name}"    
-                Margin="5,0"
-                Foreground="#FFDED1D1"
-                materialDesign:HintAssist.Hint="Enter the employee's first name" 
-                Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                    x:Name="TxtBoxFirstName"
+                    Text="{Binding Person.First_name}"    
+                    Margin="5,0"
+                    Foreground="#FFDED1D1"
+                    materialDesign:HintAssist.Hint="Enter the employee's first name" 
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                 </TextBox>
             </Border>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="4">
             <Border
-                x:Name="TxtBoxMiddleName"
                 CornerRadius="5"
                 Margin="0,10,10,0" 
                 Background="#FF38387C">
                 <TextBox
-                Text="{Binding Person.Middle_name}"
-                Margin="5,0"
-                Foreground="#FFDED1D1"
-                materialDesign:HintAssist.Hint="Enter the employee's middle name" 
-                Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                    x:Name="TxtBoxMiddleName"
+                    Text="{Binding Person.Middle_name}"
+                    Margin="5,0"
+                    Foreground="#FFDED1D1"
+                    materialDesign:HintAssist.Hint="Enter the employee's middle name" 
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                 </TextBox>
             </Border>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="5">
             <Border
-                x:Name="TxtBoxBirthdate"
                 CornerRadius="5"
                 Margin="0,10,10,0" 
                 Background="#FF38387C">
                 <TextBox
-                Text="{Binding Person.Birthdate_s}"
-                Margin="5,0"
-                Foreground="#FFDED1D1"
-                materialDesign:HintAssist.Hint="Enter the employee's birthdate" 
-                Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                    x:Name="TxtBoxBirthdate"
+                    Text="{Binding Person.Birthdate_s}"
+                    Margin="5,0"
+                    Foreground="#FFDED1D1"
+                    materialDesign:HintAssist.Hint="Enter the employee's birthdate" 
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                 </TextBox>
             </Border>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="6">
-            <Border
-                x:Name="TxtBoxGender"
-                CornerRadius="5"
-                Margin="0,10,10,0" 
-                Background="#FF38387C">
-                <TextBox
-                Text="{Binding Person.Gender}"
-                Margin="5,0"
-                Foreground="#FFDED1D1"
-                materialDesign:HintAssist.Hint="Enter the employee's gender" 
-                Style="{StaticResource MaterialDesignFloatingHintTextBox}">
-                </TextBox>
-            </Border>
+            <ComboBox
+                Margin="0 10 0 0"
+                x:Name="CmbBoxGender"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                materialDesign:HintAssist.Hint="Select a gender"
+                FontFamily="Segoe UI Light"
+                FontSize="13" 
+                Width="110"
+                Background="#FF38387C"
+                Foreground="#FFEFECE7"
+                BorderBrush="#FFACACD5"
+                Height="40"
+                HorizontalContentAlignment="Left"
+                VerticalContentAlignment="Center"
+                Padding="5,4,0,4">
+                <ComboBoxItem>
+                    <Run Text="Мужской" Foreground="#FF4C4CA4"/>
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    <Run Text="Женский" Foreground="#FF4C4CA4"/>
+                </ComboBoxItem>
+            </ComboBox>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="7">
             <Border
-                x:Name="TxtBoxSerPas"
                 CornerRadius="5"
                 Margin="0,10,10,0" 
                 Background="#FF38387C">
                 <TextBox
-                Text="{Binding Person.Series_passport}"
-                Margin="5,0"
-                Foreground="#FFDED1D1"
-                materialDesign:HintAssist.Hint="Enter the employee's series passport" 
-                Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                    x:Name="TxtBoxSerPas"
+                    Text="{Binding Person.Series_passport}"
+                    Margin="5,0"
+                    Foreground="#FFDED1D1"
+                    materialDesign:HintAssist.Hint="Enter the employee's series passport" 
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                 </TextBox>
             </Border>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="8">
             <Border
-                x:Name="TxtBoxNumPas"
                 CornerRadius="5"
                 Margin="0,10,10,0" 
                 Background="#FF38387C">
                 <TextBox
+                    x:Name="TxtBoxNumPas"
                     Text="{Binding Person.Number_passport}"
                     Margin="5,0"
                     Foreground="#FFDED1D1"
@@ -293,32 +322,14 @@
                 </TextBox>
             </Border>
         </Grid>
-        <Grid Grid.Column="2" Grid.Row="6">
-            <TextBlock 
-                Text="Login"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                FontSize="16"
-                FontFamily="Microsoft YaHei UI Light"
-                Foreground="#FFE5E5F0" Margin="10,21,10,9"/>
-        </Grid>
-        <Grid Grid.Column="2" Grid.Row="7">
-            <TextBlock 
-                Text="Password"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                FontSize="16"
-                FontFamily="Microsoft YaHei UI Light"
-                Foreground="#FFE5E5F0" Margin="45,21,45,9"/>
-        </Grid>
         
         <Grid Grid.Column="3" Grid.Row="2">
             <Border
-                x:Name="TxtBoxAddress"
                 CornerRadius="5"
                 Margin="0,10,10,0" 
                 Background="#FF38387C">
                 <TextBox
+                    x:Name="TxtBoxAddress"
                     Text="{Binding Person.Address}"
                     Margin="5,0"
                     Foreground="#FFDED1D1"
@@ -329,11 +340,11 @@
         </Grid>
         <Grid Grid.Column="3" Grid.Row="3">
             <Border
-                x:Name="TxtBoxEmail"
                 CornerRadius="5"
                 Margin="0,10,10,0" 
                 Background="#FF38387C">
                 <TextBox
+                    x:Name="TxtBoxEmail"
                     Text="{Binding Person.Email}"
                     Margin="5,0"
                     Foreground="#FFDED1D1"
@@ -344,41 +355,57 @@
         </Grid>
         <Grid Grid.Column="3" Grid.Row="4">
             <Border
-                x:Name="TxtBoxNumTel"
                 CornerRadius="5"
                 Margin="0,10,10,0" 
                 Background="#FF38387C">
                 <TextBox
-                    Text="{Binding Number_telephone}"
+                    x:Name="TxtBoxSalary"
+                    Text="{Binding Salary}"
                     Margin="5,0"
                     Foreground="#FFDED1D1"
-                    materialDesign:HintAssist.Hint="Enter the employee's number telephone" 
+                    materialDesign:HintAssist.Hint="Enter the employee's salary" 
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                 </TextBox>
             </Border>
         </Grid>
         <Grid Grid.Column="3" Grid.Row="5">
-            <Border
-                x:Name="TxtBoxPost"
-                CornerRadius="5"
-                Margin="0,10,10,0" 
-                Background="#FF38387C">
-                <TextBox
-                    Text="{Binding Post}"
-                    Margin="5,0"
-                    Foreground="#FFDED1D1"
-                    materialDesign:HintAssist.Hint="Enter the employee's post" 
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}">
-                </TextBox>
-            </Border>
+            <ComboBox
+                Margin="0 10 0 0"
+                x:Name="CmbBoxPost"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                materialDesign:HintAssist.Hint="Select a post"
+                FontFamily="Segoe UI Light"
+                FontSize="13" 
+                Width="200"
+                Background="#FF38387C"
+                Foreground="#FFEFECE7"
+                BorderBrush="#FFACACD5"
+                Height="40"
+                HorizontalContentAlignment="Left"
+                VerticalContentAlignment="Center"
+                Padding="5,4,0,4">
+                <ComboBoxItem>
+                    <Run Text="Онлайн консультант" Foreground="#FF4C4CA4"/>
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    <Run Text="Оператор" Foreground="#FF4C4CA4"/>
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    <Run Text="Менеджер" Foreground="#FF4C4CA4"/>
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    <Run Text="Администратор" Foreground="#FF4C4CA4"/>
+                </ComboBoxItem>
+            </ComboBox>
         </Grid>
         <Grid Grid.Column="3" Grid.Row="6">
             <Border
-                x:Name="TxtBoxLogin"
                 CornerRadius="5"
                 Margin="0,10,10,0" 
                 Background="#FF38387C">
                 <TextBox
+                    x:Name="TxtBoxLogin"
                     Text="{Binding User.Login}"
                     Margin="5,0"
                     Foreground="#FFDED1D1"
@@ -389,11 +416,11 @@
         </Grid>
         <Grid Grid.Column="3" Grid.Row="7">
             <Border
-                x:Name="TxtBoxPass"
                 CornerRadius="5"
                 Margin="0,10,10,0" 
                 Background="#FF38387C">
                 <TextBox
+                    x:Name="TxtBoxPass"
                     Text="{Binding User.Password}"
                     Margin="5,0"
                     Foreground="#FFDED1D1"

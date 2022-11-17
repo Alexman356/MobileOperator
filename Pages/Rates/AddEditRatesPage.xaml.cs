@@ -20,11 +20,17 @@ namespace MobileOperator
 
             CurrentRate = selectedRate;
             DataContext = CurrentRate;
+            Validator = new Validator();
         }
 
-        private void BtnSaveRate_Click(object sender, RoutedEventArgs e)
+        private Validator Validator { get; }
+
+        private void BtnSaveRateClick(object sender, RoutedEventArgs e)
         {
-            CheckingEnteredData();
+            if (!Validator.IsValidRateData(CurrentRate))
+            {
+                return;
+            }
 
             try
             {
@@ -44,43 +50,11 @@ namespace MobileOperator
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message.ToString());
+                MessageBox.Show(ex.Message);
             }
         }
 
-        private void CheckingEnteredData()
-        {
-            StringBuilder errors = new StringBuilder();
-
-            if (string.IsNullOrWhiteSpace(CurrentRate.Name_rate))
-            {
-                errors.AppendLine("Incorrect name rate value entered!");
-            }
-            if (CurrentRate.Cost > 32767)
-            {
-                errors.AppendLine("Incorrect cost value entered!");
-            }
-            if (CurrentRate.Internet > 32767)
-            {
-                errors.AppendLine("Incorrect internet value entered!");
-            }
-            if (CurrentRate.Minutes > 32767)
-            {
-                errors.AppendLine("Incorrect minutes value entered!");
-            }
-            if (CurrentRate.SMS > 32767)
-            {
-                errors.AppendLine("Incorrect SMS value entered!");
-            }
-
-            if (errors.Length > 0)
-            {
-                MessageBox.Show(errors.ToString());
-                return;
-            }
-        }
-
-        private void BtnBackRate_Click(object sender, RoutedEventArgs e)
+        private void BtnBackRateClick(object sender, RoutedEventArgs e)
         {
             Context.Set(null);
             NavigationService.Navigate(new RatesPage());

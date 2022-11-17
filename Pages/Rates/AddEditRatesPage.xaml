@@ -76,7 +76,7 @@
                     <Border Margin="0,0,10,0">
                         <Button
                             x:Name="BtnBackRate"
-                            Click="BtnBackRate_Click"
+                            Click="BtnBackRateClick"
                             Background="#FF41419E" 
                             FontFamily="Microsoft YaHei UI Light" 
                             FontSize="17" 
@@ -96,7 +96,7 @@
                     <Border Margin="0,0,10,0">
                         <Button
                             x:Name="BtnSaveRate"
-                            Click="BtnSaveRate_Click"
+                            Click="BtnSaveRateClick"
                             Background="#FF41419E" 
                             FontFamily="Microsoft YaHei UI Light" 
                             FontSize="17" 
@@ -134,7 +134,7 @@
                 Background="#FF38387C">
                 <TextBox 
                 Text="{Binding Name_rate}"
-                Margin="5,0"
+                Margin="5 3 0 0"
                 Foreground="#FFDED1D1"
                 materialDesign:HintAssist.Hint="Enter the rate's name" 
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}">
@@ -148,7 +148,7 @@
                 Background="#FF38387C">
                 <TextBox
                 Text="{Binding Cost}"  
-                Margin="5,0"
+                Margin="5 3 0 0"
                 Foreground="#FFDED1D1"
                 materialDesign:HintAssist.Hint="Enter the rate's cost" 
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}">
@@ -162,7 +162,7 @@
                 Background="#FF38387C">
                 <TextBox
                 Text="{Binding Internet}"
-                Margin="5,0"
+                Margin="5 3 0 0"
                 Foreground="#FFDED1D1"
                 materialDesign:HintAssist.Hint="Enter the rate's internet" 
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}">
@@ -176,7 +176,7 @@
                 Background="#FF38387C">
                 <TextBox
                 Text="{Binding Minutes}"
-                Margin="5,0"
+                Margin="5 3 0 0"
                 Foreground="#FFDED1D1"
                 materialDesign:HintAssist.Hint="Enter the rate's minutes" 
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}">
@@ -190,7 +190,7 @@
                 Background="#FF38387C">
                 <TextBox
                 Text="{Binding SMS}"
-                Margin="5,0"
+                Margin="5 3 0 0"
                 Foreground="#FFDED1D1"
                 materialDesign:HintAssist.Hint="Enter the rate's SMS" 
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}">

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Icon="C:\Users\Alex\Desktop\Study\Курсовая работа БСБД\MobileOperator WPF\MobileOperator\Images\logo.ico"
+        Icon="..\..\Images\logo.ico"
         Title="Autorization" Height="500" Width="400" ResizeMode="NoResize" WindowStyle="None">
     <Grid >
         <Grid.RowDefinitions>
@@ -112,7 +112,7 @@
                 <Button
                     x:Name="BtnAuth"
                     Click="BtnAuthClick"
-                    Content="Авторизоваться"
+                    Content="Log in"
                     Margin="0 40 0 0"
                     FontFamily="Microsoft YaHei UI"
                     Background="#FF36368F"
