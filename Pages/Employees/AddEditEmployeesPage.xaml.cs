@@ -10,7 +10,6 @@ namespace MobileOperator
         public AddEditEmployeePage(Employee selectedEmployee)
         {
             InitializeComponent();
-
             if (selectedEmployee.Person == null)
             {
                 selectedEmployee.Person = new Person();
@@ -18,11 +17,12 @@ namespace MobileOperator
                 TitleNameEmployee.Text = "Add rate";
                 selectedEmployee.User.Role = "Оператор";
             }
-            СurrentEmployee = selectedEmployee;
+
+            CurrentEmployee = selectedEmployee;
             DataContext = selectedEmployee;
         }
 
-        private Employee СurrentEmployee { get; set; }
+        private Employee CurrentEmployee { get; set; }
 
         private void BtnBackPage_Click(object sender, RoutedEventArgs e)
         {
@@ -36,9 +36,9 @@ namespace MobileOperator
 
             try
             {
-                if (СurrentEmployee.employee_ID == null)
+                if (CurrentEmployee.employee_ID == null)
                 {
-                    Context.Get().Employees.Add(СurrentEmployee);
+                    Context.Get().Employees.Add(CurrentEmployee);
                     Context.Get().SaveChanges();
                     MessageBox.Show("Новый сотрудник добавлен");
                     NavigationService.Navigate(new EmployeesPage());
@@ -56,60 +56,46 @@ namespace MobileOperator
             }
         }
 
-        private string date;
-
         private void CheckingEnteredData()
         {
-            StringBuilder errors = new StringBuilder();
+            var errors = new StringBuilder();
 
-            if (string.IsNullOrWhiteSpace(СurrentEmployee.Person.Last_name))
+            if (string.IsNullOrWhiteSpace(CurrentEmployee.Person.Last_name))
             {
                 errors.AppendLine("Incorrect last name value entered!");
             }
-            if (string.IsNullOrWhiteSpace(СurrentEmployee.Person.First_name))
+            if (string.IsNullOrWhiteSpace(CurrentEmployee.Person.First_name))
             {
                 errors.AppendLine("Incorrect first name value entered!");
             }
-            if (СurrentEmployee.Person.Middle_name.Length > 50)
+            if (CurrentEmployee.Person.Middle_name.Length > 50)
             {
                 errors.AppendLine("Incorrect middle name value entered!");
             }
-            if (string.IsNullOrWhiteSpace(СurrentEmployee.Person.Gender))
+            if (string.IsNullOrWhiteSpace(CurrentEmployee.Person.Gender))
             {
                 errors.AppendLine("Incorrect middle name value entered!");
             }
             //if (string.IsNullOrWhiteSpace(currentSubscriber.Birthdate)) //TODO ДАВНЕШНЕЯ ПРОБЛЕМА
             //errors.AppendLine("DANGER Birthdate!");
 
-            DateTime dDate;
-            if (DateTime.TryParse(date, out dDate))
-            {
-                String.Format("{0:dd.MM.yyyy}", dDate);
-
-                СurrentEmployee.Person.Birthdate_s = date;
-            }
-            else
-            {
-                Console.WriteLine("Invalid");
-            }
-
-            if (СurrentEmployee.Person.Series_passport.Length != 4)
+            if (CurrentEmployee.Person.Series_passport.Length != 4)
             {
                 errors.AppendLine("Incorrect value of the passport series has been entered!");
             }
-            if (СurrentEmployee.Person.Number_passport.Length != 6)
+            if (CurrentEmployee.Person.Number_passport.Length != 6)
             {
                 errors.AppendLine("Incorrect value of the passport number has been entered!");
             }
-            if (СurrentEmployee.Person.Address.Length > 300)
+            if (CurrentEmployee.Person.Address.Length > 300)
             {
                 errors.AppendLine("Incorrect value of the address has been entered!");
             }
-            if (СurrentEmployee.Person.Email?.Length > 100)
+            if (CurrentEmployee.Person.Email?.Length > 100)
             {
                 errors.AppendLine("Incorrect value of the email has been entered!");
             }
-            if (СurrentEmployee.User.Login.Length > 50)
+            if (CurrentEmployee.User.Login.Length > 50)
             {
                 errors.AppendLine("Incorrect value of the passport number has been entered!");
             }
