@@ -15,19 +15,25 @@ namespace MobileOperator
 
         private void BtnAddRateClick(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new AddEditRatesPage(new Rate()));
+            GoToAddEditRatesPage(new Rate());
         }
 
         private void BtnEditRateClick(object sender, RoutedEventArgs e)
         {
             if (DGRate.SelectedItem != null)
             {
-                NavigationService.Navigate(new AddEditRatesPage((Rate)DGRate.SelectedItem));
+                GoToAddEditRatesPage(DGRate.SelectedItem as Rate);
             }
             else
             {
                 MessageBox.Show("Выберите тариф");
             }
+        }
+
+        private void GoToAddEditRatesPage(Rate rate)
+        {
+            var addEditRatesPage = new AddEditRatesPage(this, rate);
+            NavigationService.Navigate(addEditRatesPage);
         }
 
         private void BtnDeleteRateClick(object sender, RoutedEventArgs e)

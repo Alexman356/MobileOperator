@@ -14,9 +14,20 @@ namespace MobileOperator
         public MainWindow()
         {
             InitializeComponent();
+            Pages = new PagesModel // TODO get from login window
+            {
+                Abonents = new AbonentsPage(),
+                Contracts = new ContractsPage(),
+                Employees = new EmployeesPage(),
+                Rates = new RatesPage(),
+                User = new UserPage(),
+            };
+
             var addUniqueRandomDataCommand = new AddUniqueRandomDataCommand();
             addUniqueRandomDataCommand.Execute();
         }
+
+        private PagesModel Pages { get; }
 
         private void BtnExit_Click(object sender, RoutedEventArgs e)
         {
@@ -38,32 +49,31 @@ namespace MobileOperator
 
         private void BtnAbonentsClick(object sender, RoutedEventArgs e)
         {
-            PageStart.Content = new AbonentsPage();
+            PageStart.Content = Pages.Abonents;
         }
 
         private void BtnRatesClick(object sender, RoutedEventArgs e)
         {
-            PageStart.Content = new RatesPage();
+            PageStart.Content = Pages.Rates;
         }
 
         private void BtnEmployeesClick(object sender, RoutedEventArgs e)
         {
-            PageStart.Content = new EmployeesPage();
+            PageStart.Content = Pages.Employees;
         }
 
         private void BtnContractsClick(object sender, RoutedEventArgs e)
         {
-            PageStart.Content = new ContractsPage();
+            PageStart.Content = Pages.Contracts;
         }
 
         private void BtnSearchClick(object sender, RoutedEventArgs e)
         {
-            PageStart.Content = new SearchPage();
         }
 
         private void BtnSecurityClick(object sender, RoutedEventArgs e)
         {
-            PageStart.Content = new UserPage();
+            PageStart.Content = Pages.User;
         }
 
         private void BtnInfoClick(object sender, RoutedEventArgs e)
