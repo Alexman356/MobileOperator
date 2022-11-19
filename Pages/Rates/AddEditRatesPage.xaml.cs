@@ -1,18 +1,16 @@
 ﻿using System;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace MobileOperator
 {
-    public partial class AddEditRatesPage : Page//TODO Проверка на буквы в стоимости и т.п.
+    public partial class AddEditRatesPage : Page
     {
         private Rate CurrentRate;
 
-        public AddEditRatesPage(Rate selectedRate)
+        public AddEditRatesPage(RatesPage ratesPage, Rate selectedRate)
         {
             InitializeComponent();
-
             if (selectedRate.Name_rate != null)
             {
                 TitleNameRate.Text = "Edit rate";
@@ -20,67 +18,50 @@ namespace MobileOperator
 
             CurrentRate = selectedRate;
             DataContext = CurrentRate;
+            RatesPage = ratesPage;
+            Validator = new Validator();
         }
 
-        private void BtnSaveRate_Click(object sender, RoutedEventArgs e)
+        private RatesPage RatesPage { get; set; }
+
+        private Validator Validator { get; }
+
+        private void BtnSaveRateClick(object sender, RoutedEventArgs e)
         {
-            CheckingEnteredData();
+            if (!Validator.IsValidRateData(CurrentRate))
+            {
+                return;
+            }
 
             try
             {
                 if (CurrentRate.Rate_ID != 0)
                 {
                     Context.Get().SaveChanges();
-                    MessageBox.Show("Тариф отредактирован!");
-                    NavigationService.Navigate(new RatesPage());
+                    MessageBox.Show("The rate has been edited!");
+                    GoToRatesPage();
                 }
                 else
                 {
                     Context.Get().Rates.Add(CurrentRate);
                     Context.Get().SaveChanges();
-                    MessageBox.Show("Тариф добавлен!");
-                    NavigationService.Navigate(new RatesPage());
+                    MessageBox.Show("The rate has been added!");
+                    GoToRatesPage();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message.ToString());
+                MessageBox.Show(ex.Message);
             }
         }
 
-        private void CheckingEnteredData()
+        private void GoToRatesPage()
         {
-            StringBuilder errors = new StringBuilder();
-
-            if (string.IsNullOrWhiteSpace(CurrentRate.Name_rate))
-            {
-                errors.AppendLine("Incorrect name rate value entered!");
-            }
-            if (CurrentRate.Cost > 32767)
-            {
-                errors.AppendLine("Incorrect cost value entered!");
-            }
-            if (CurrentRate.Internet > 32767)
-            {
-                errors.AppendLine("Incorrect internet value entered!");
-            }
-            if (CurrentRate.Minutes > 32767)
-            {
-                errors.AppendLine("Incorrect minutes value entered!");
-            }
-            if (CurrentRate.SMS > 32767)
-            {
-                errors.AppendLine("Incorrect SMS value entered!");
-            }
-
-            if (errors.Length > 0)
-            {
-                MessageBox.Show(errors.ToString());
-                return;
-            }
+            RatesPage = new RatesPage();
+            NavigationService.Navigate(RatesPage);
         }
 
-        private void BtnBackRate_Click(object sender, RoutedEventArgs e)
+        private void BtnBackRateClick(object sender, RoutedEventArgs e)
         {
             Context.Set(null);
             NavigationService.Navigate(new RatesPage());

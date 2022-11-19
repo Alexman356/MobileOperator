@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -37,8 +38,8 @@ namespace MobileOperator
                 .Where(contract => abonentIdsForRemove.Contains(contract.abonent_ID));
 
             var dialogResult = MessageBox.Show(
-                $"Вы точно хотите удалить следующие {abonentsForRemove.Count()} элементов?",
-                "Внимание!",
+                $"You definitely want to delete the following {abonentsForRemove.Count()} elements?",
+                "Attention!",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question);
 
@@ -51,10 +52,10 @@ namespace MobileOperator
                     Context.Get().Persons.RemoveRange(personsForRemove);
                     Context.Get().Users.RemoveRange(usersForRemove);
                     Context.Get().SaveChanges();
-                    MessageBox.Show("Данные успешно удалены!");
+                    MessageBox.Show("The data has been successfully deleted!");
                     DGAbonents.ItemsSource = Context.Get().Abonents.ToList();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
@@ -65,12 +66,18 @@ namespace MobileOperator
         {
             if (DGAbonents.SelectedItem != null)
             {
-                NavigationService?.Navigate(new EditAbonentPage((Abonent)DGAbonents.SelectedItem));
+                GoToEditAbonentPage(DGAbonents.SelectedItem as Abonent);
             }
             else
             {
-                MessageBox.Show("Выберите абонента");
+                MessageBox.Show("Select the subscriber to edit");
             }
+        }
+
+        private void GoToEditAbonentPage(Abonent abonent)
+        {
+            var editAbonentPage = new EditAbonentPage(this, abonent);
+            NavigationService.Navigate(editAbonentPage);
         }
 
         private void CmbBoxAbonentSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -85,7 +92,7 @@ namespace MobileOperator
         {
             if (CmbBoxAbonent.SelectedIndex == -1)
             {
-                MessageBox.Show("Выберите фильтр поиска");
+                MessageBox.Show("Select a search filter");
 
                 return;
             }
@@ -97,9 +104,10 @@ namespace MobileOperator
 
         private void SearchAbonent(string text)
         {
-            foreach (var abonent in Context.Get().Abonents)
+            foreach (var abonent in DGAbonents.ItemsSource as List<Abonent>)
             {
-                ChangeRowVisible(abonent, RowIsContainsText(abonent, text));
+                var rowIsContainsText = RowIsContainsText(abonent, text);
+                ChangeRowVisible(abonent, rowIsContainsText);
             }
         }
 
@@ -113,7 +121,7 @@ namespace MobileOperator
                     }
                 case 1:
                     {
-                        return abonent.Person.Birthdate.ToString().Contains(text);
+                        return abonent.Person.Birthdate_s.Contains(text);
                     }
                 case 2:
                     {
@@ -129,7 +137,7 @@ namespace MobileOperator
 
         private void ChangeRowVisible(Abonent row, bool isToShow)
         {
-            var itemContainer = GetItemContainer(row);
+            var itemContainer = DGAbonents.ItemContainerGenerator.ContainerFromItem(row);
 
             if (!(itemContainer is DataGridRow dataGridRow))
             {
@@ -145,18 +153,6 @@ namespace MobileOperator
             {
                 dataGridRow.Visibility = Visibility.Collapsed;
             }
-        }
-
-        private DependencyObject GetItemContainer(Abonent row)
-        {
-            var abonentsForHide = Context.Get().Abonents
-                .Where(abonent => abonent.abonent_ID == row.abonent_ID)
-                .ToList()
-                .FirstOrDefault();
-
-            var itemContainer = DGAbonents.ItemContainerGenerator.ContainerFromItem(abonentsForHide);
-
-            return itemContainer;
         }
     }
 }

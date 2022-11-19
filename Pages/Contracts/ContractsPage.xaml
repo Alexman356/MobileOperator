@@ -35,10 +35,10 @@
         <Grid Grid.Row="1">
             <Border>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Border Margin="0,0,10,0">
+                    <Border x:Name="BdrAddContract" Margin="0,0,10,0">
                         <Button
-                            x:Name="AddContract"
-                            Click="AddContractClick"
+                            x:Name="BtnAddContract"
+                            Click="BtnAddContractClick"
                             Background="#FF41419E" 
                             FontFamily="Microsoft YaHei UI Light" 
                             FontSize="17" 
@@ -55,10 +55,10 @@
                             </StackPanel>
                         </Button>
                     </Border>
-                    <Border Margin="0,0,10,0">
+                    <Border x:Name="BdrAddNumber" Margin="0,0,10,0">
                         <Button
-                            x:Name="AddNumber"
-                            Click="AddNumberClick"
+                            x:Name="BtnAddNumber"
+                            Click="BtnAddNumberClick"
                             Background="#FF41419E" 
                             FontFamily="Microsoft YaHei UI Light" 
                             FontSize="17" 
@@ -75,7 +75,27 @@
                             </StackPanel>
                         </Button>
                     </Border>
-                    <Border>
+                    <Border Margin="0,0,10,0">
+                        <Button
+                            x:Name="BtnEditRate"
+                            Click="BtnEditRateClick"
+                            Background="#FF41419E" 
+                            FontFamily="Microsoft YaHei UI Light" 
+                            FontSize="17" 
+                            Foreground="#DDFFFFFF"
+                            BorderBrush="#DDA0A0A0">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon 
+                                    Kind="SimOutline" 
+                                    Margin="0,3,10,0"
+                                    Foreground="#FFD1D1EE"/>
+                                <TextBlock 
+                                    Text="Edit rate" 
+                                    HorizontalAlignment="Right"/>
+                            </StackPanel>
+                        </Button>
+                    </Border>
+                    <Border x:Name="BdrDelContract">
                         <Button
                             x:Name="BtnDelContract"
                             Click="BtnDelContractClick"
@@ -146,6 +166,9 @@
                             <ComboBoxItem>
                                 <Run Text="Number telephone" Foreground="#FF4C4CA4"/>
                             </ComboBoxItem>
+                            <ComboBoxItem>
+                                <Run Text="Employee ID" Foreground="#FF4C4CA4"/>
+                            </ComboBoxItem>
                         </ComboBox>
                     </Border>
                     <Border
@@ -169,11 +192,13 @@
         <Grid Grid.Row="3">
             <DataGrid 
                 x:Name="DGContract"
-                IsReadOnly="True"
+                VirtualizingStackPanel.IsVirtualizing="False"
                 AutoGenerateColumns="False"
                 VerticalGridLinesBrush="#FFABABAB" 
                 HorizontalGridLinesBrush="#FFABABAB"
-                GridLinesVisibility="All" Background="#FFD0D4E8">
+                GridLinesVisibility="All"
+                Background="#FFD0D4E8" CellEditEnding="DGContractCellEditEnding"
+                CanUserAddRows="false">
                 <DataGrid.Resources>
                     <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" 
                            TargetType="{x:Type DataGridColumnHeader}">
@@ -184,34 +209,46 @@
 
                 </DataGrid.Resources>
                 <DataGrid.Columns>
-                    <DataGridTextColumn 
+                    <DataGridTextColumn
+                        x:Name="ColumnIdContract"
+                        IsReadOnly="True"
                         Header="ID"
                         Binding="{Binding contract_ID}"
-                        Width="*"/>
+                        Width="50"/>
                     <DataGridTextColumn 
-                        Header="Employee code"
+                        x:Name="ColumnIdEmployee"
+                        IsReadOnly="True"
+                        Header="Employee ID"
                         Binding="{Binding employee_ID}"
-                        Width="*"/>
-                    <DataGridTextColumn 
-                        Header="abonent ID"
-                        Binding="{Binding abonent_ID}"
-                        Width="*"/>
+                        Width="100"/>
                     <DataGridTextColumn
+                        x:Name="ColumnIdAbonent"
+                        IsReadOnly="True"
+                        Header="Abonent ID"
+                        Binding="{Binding abonent_ID}"
+                        Width="100"/>
+                    <DataGridTextColumn
+                        IsReadOnly="True"
                         Header="Number telephone"
                         Binding="{Binding  Number_telephone}"
                         Width="*"/>
                     <DataGridTextColumn
+                        IsReadOnly="True"
                         Header="Name rate"
                         Binding="{Binding Number.Rate.Name_rate}"
                         Width="*"/>
-                    <DataGridTextColumn 
-                        Header="Name rate"
-                        Binding="{Binding Status}"
-                        Width="*"/>
                     <DataGridTextColumn
+                        IsReadOnly="True"
                         Header="Date"
-                        Binding="{Binding Date}"
-                        Width="*"/>
+                        Binding="{Binding Date_s}"
+                        Width="130"/>
+                    <DataGridCheckBoxColumn
+                        x:Name="CheBoxStatus"
+                        Header="Status"
+                        Binding="{Binding Status}"
+                        IsReadOnly="False"
+                        Width="100"
+                        />
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

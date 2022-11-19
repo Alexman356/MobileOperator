@@ -169,6 +169,7 @@
             <DataGrid
                 IsReadOnly="True"
                 x:Name="DGEmployee"
+                VirtualizingStackPanel.IsVirtualizing="False"
                 AutoGenerateColumns="False"
                 VerticalGridLinesBrush="#FFABABAB" 
                 HorizontalGridLinesBrush="#FFABABAB"
@@ -218,12 +219,16 @@
                     Binding="{Binding Person.Email}"
                     Width="100"/>
                     <DataGridTextColumn 
-                    Header="Telephone"
+                    Header="Salary"
                     Binding="{Binding Salary}"
                     Width="100"/>
                     <DataGridTextColumn 
                     Header="Post"
                     Binding="{Binding Post}"
+                    Width="100"/>
+                    <DataGridTextColumn 
+                    Header="Login"
+                    Binding="{Binding User.Login}"
                     Width="100"/>
                 </DataGrid.Columns>
             </DataGrid>

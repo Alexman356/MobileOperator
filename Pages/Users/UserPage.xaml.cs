@@ -16,12 +16,17 @@ namespace MobileOperator
         {
             if (DGUser.SelectedItem != null)
             {
-                NavigationService.Navigate(new EditUserPage((User)DGUser.SelectedItem));
+                GoToPage(new EditUserPage(this, (User)DGUser.SelectedItem));
             }
             else
             {
-                MessageBox.Show("Выберите пользователя");
+                MessageBox.Show("Select the user to edit");
             }
+        }
+
+        private void GoToPage(Page page)
+        {
+            NavigationService.Navigate(page);
         }
 
         private void CmbBoxUserSelectionChanged(object sender, SelectionChangedEventArgs e)

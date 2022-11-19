@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 
 namespace MobileOperator
@@ -11,14 +12,15 @@ namespace MobileOperator
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
         /// </summary>
-        public MainWindow()
+        public MainWindow(PagesModel pages)
         {
             InitializeComponent();
-            var addUniqueRandomDataCommand = new AddUniqueRandomDataCommand();
-            addUniqueRandomDataCommand.Execute();
+            Pages = pages;
         }
 
-        private void BtnExit_Click(object sender, RoutedEventArgs e)
+        private PagesModel Pages { get; }
+
+        private void BtnExitPanelClick(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
@@ -33,42 +35,53 @@ namespace MobileOperator
 
         private void BtnHideClick(object sender, RoutedEventArgs e)
         {
-            Application.Current.MainWindow.WindowState = WindowState.Minimized;
+            WindowState = WindowState.Minimized;
         }
 
         private void BtnAbonentsClick(object sender, RoutedEventArgs e)
         {
-            PageStart.Content = new AbonentsPage();
+            Pages.Abonents.DGAbonents.ItemsSource = Context.Get().Abonents.ToList();
+            PageStart.Content = Pages.Abonents;
         }
 
         private void BtnRatesClick(object sender, RoutedEventArgs e)
         {
-            PageStart.Content = new RatesPage();
+            PageStart.Content = Pages.Rates;
         }
 
         private void BtnEmployeesClick(object sender, RoutedEventArgs e)
         {
-            PageStart.Content = new EmployeesPage();
+            PageStart.Content = Pages.Employees;
         }
 
         private void BtnContractsClick(object sender, RoutedEventArgs e)
         {
-            PageStart.Content = new ContractsPage();
-        }
-
-        private void BtnSearchClick(object sender, RoutedEventArgs e)
-        {
-            PageStart.Content = new SearchPage();
+            PageStart.Content = Pages.Contracts;
         }
 
         private void BtnSecurityClick(object sender, RoutedEventArgs e)
         {
-            PageStart.Content = new UserPage();
+            PageStart.Content = Pages.User;
         }
 
-        private void BtnInfoClick(object sender, RoutedEventArgs e)
+        private void BtnProfileClick(object sender, RoutedEventArgs e)
         {
+            PageStart.Content = Pages.Profile;
+        }
 
+        private void BtnLogOutClick(object sender, RoutedEventArgs e)
+        {
+            var dialogResult = MessageBox.Show(
+                $"Do you really want to log out of your account?",
+                "Attention!",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (dialogResult == MessageBoxResult.Yes)
+            {
+                Pages.LoginWindow.Show();
+                Close();
+            }
         }
     }
 }

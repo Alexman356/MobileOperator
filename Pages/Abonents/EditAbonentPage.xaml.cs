@@ -1,93 +1,74 @@
 ﻿using System;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace MobileOperator
 {
-    public partial class EditAbonentPage : Page //TODO На этой странице пофиксить емайл и дату рождения
+    public partial class EditAbonentPage : Page
     {
-        private Abonent CurrentAbonent;
-
-        public EditAbonentPage(Abonent selectedAbonent)
+        public EditAbonentPage(AbonentsPage abonentsPage, Abonent selectedAbonent)
         {
             InitializeComponent();
             DataContext = selectedAbonent;
             CurrentAbonent = selectedAbonent;
+            AbonentsPage = abonentsPage;
+            Validator = new Validator();
+
+            if (CurrentAbonent.Person.Gender == "Мужской")
+            {
+                CmbBoxAbonent.SelectedIndex = 0;
+            }
+
+            if (CurrentAbonent.Person.Gender == "Женский")
+            {
+                CmbBoxAbonent.SelectedIndex = 1;
+            }
         }
 
-        private void BtnBackPage_Click(object sender, RoutedEventArgs e)
+        private Abonent CurrentAbonent { get; }
+
+        private AbonentsPage AbonentsPage { get; set; }
+
+        private Validator Validator { get; }
+
+        private void BtnBackPageClick(object sender, RoutedEventArgs e)
         {
-            Context.Set(null);
-            NavigationService.Navigate(new AbonentsPage());
+            GoToAbonentsPage(AbonentsPage);
         }
 
-        private void BtnSaveData_Click(object sender, RoutedEventArgs e)
+        private void BtnSaveDataClick(object sender, RoutedEventArgs e)
         {
-            CheckingEnteredData();
+            if (!Validator.IsValidPersonData(CurrentAbonent.Person))
+            {
+                return;
+            }
+
+            if (CmbBoxAbonent.SelectedIndex == 0)
+            {
+                CurrentAbonent.Person.Gender = "Мужской";
+            }
+
+            if (CmbBoxAbonent.SelectedIndex == 1)
+            {
+                CurrentAbonent.Person.Gender = "Женский";
+            }
 
             try
             {
-                if (CurrentAbonent.abonent_ID != 0)
-                {
-                    Context.Get().SaveChanges();
-                    MessageBox.Show("Абонент отредактирован!");
-                    NavigationService.Navigate(new AbonentsPage());
-                }
+                Context.Get().SaveChanges();
+                MessageBox.Show("Абонент отредактирован!");
+                AbonentsPage = new AbonentsPage();
+                GoToAbonentsPage(AbonentsPage);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message.ToString());
+                MessageBox.Show(ex.Message);
             }
         }
 
-        private void CheckingEnteredData()
+        private void GoToAbonentsPage(Page abonentsPage)
         {
-            StringBuilder errors = new StringBuilder();
-
-            if (string.IsNullOrWhiteSpace(CurrentAbonent.Person.Last_name))
-            {
-                errors.AppendLine("Incorrect last name value entered!");
-            }
-            if (string.IsNullOrWhiteSpace(CurrentAbonent.Person.First_name))
-            {
-                errors.AppendLine("Incorrect first name value entered!");
-            }
-            if (string.IsNullOrWhiteSpace(CurrentAbonent.Person.Middle_name))
-            {
-                errors.AppendLine("Incorrect middle name value entered!");
-            }
-            if (string.IsNullOrWhiteSpace(CurrentAbonent.Person.Gender))
-            {
-                errors.AppendLine("Incorrect middle name value entered!");
-            }
-            
-            //if (string.IsNullOrWhiteSpace(currentSubscriber.Birthdate))//TODO
-            //errors.AppendLine("DANGER Birthdate!");
-
-            if (CurrentAbonent.Person.Series_passport.Length != 4)
-            {
-                errors.AppendLine("Incorrect value of the passport series has been entered!");
-            }
-            if (CurrentAbonent.Person.Number_passport.Length != 6)
-            {
-                errors.AppendLine("Incorrect value of the passport number has been entered!");
-            }
-            if (CurrentAbonent.Person.Address.Length > 300)
-            {
-                errors.AppendLine("Incorrect value of the address has been entered!");
-            }
-            //if (currentAbonent.Person.Email.Length > 100)
-            //{
-             //   errors.AppendLine("Incorrect value of the email has been entered!");
-            //}
-
-            if (errors.Length > 0)
-            {
-                MessageBox.Show(errors.ToString());
-                return;
-            }
+            NavigationService.Navigate(abonentsPage);
         }
-
     }
 }

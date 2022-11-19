@@ -4,7 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        mc:Ignorable="d" Height="600" Width="1000" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" MinWidth="6">
+        mc:Ignorable="d" Height="600" Width="1000" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" MinWidth="6"
+        Icon="..\..\Images\logo.ico"
+        Title="Mobile operator" >
     <Grid x:Name="MainForm" >
         <Grid.RowDefinitions>
             <RowDefinition
@@ -41,7 +43,7 @@
                     FontSize="21"
                     FontFamily="Microsoft YaHei UI Light"
                     Foreground="#FF4C4CA4"
-                    Margin="0,20,0,0">
+                    Margin="0,15,0,0">
                 </TextBlock>
             </StackPanel>
             <Frame x:Name="PageStart" NavigationUIVisibility="Hidden"/>
@@ -56,7 +58,8 @@
                 <DropShadowEffect
                     BlurRadius="10"
                     Color="#FF4C4CA4"
-                    ShadowDepth="1" RenderingBias="Quality"/>
+                    ShadowDepth="1"
+                    RenderingBias="Quality"/>
             </Grid.Effect>
 
             <Grid
@@ -68,13 +71,14 @@
                     FontSize="21"
                     FontFamily="Microsoft YaHei UI Light"
                     Foreground="#FFE5E5F0"/>
+                
             </Grid>
             <StackPanel Grid.Row="1">
 
                 <Button
                     ToolTip="Show the abonents database"
                     x:Name="BtnAbonents"
-                    Margin="10"
+                    Margin="10 30 10 10"
                     Background="#FF41419E"
                     BorderBrush="#FF41419E"
                     Click="BtnAbonentsClick">
@@ -95,7 +99,7 @@
                 <Button
                     ToolTip="Show the rates database"
                     x:Name="BtnRates"
-                    Margin="10"
+                    Margin="10 20 10 10"
                     Background="#FF41419E"
                     BorderBrush="#FF41419E"
                     Click="BtnRatesClick">
@@ -116,7 +120,7 @@
                 <Button
                     ToolTip="Show the employees database"
                     x:Name="BtnEmployees"
-                    Margin="10" 
+                    Margin="10 20 10 10"
                     Background="#FF41419E"
                     BorderBrush="#FF41419E"
                     Click="BtnEmployeesClick">
@@ -137,7 +141,7 @@
                 <Button
                     ToolTip="Show the contracts database"
                     x:Name="BtnContracts"
-                    Margin="10"
+                    Margin="10 20 10 10"
                     Background="#FF41419E"
                     BorderBrush="#FF41419E"
                     Click="BtnContractsClick">
@@ -156,29 +160,9 @@
                 </Button>
 
                 <Button
-                    ToolTip="Database search"
-                    x:Name="BtnSearch"
-                    Margin="10"
-                    Background="#FF41419E"
-                    BorderBrush="#FF41419E"
-                    Click="BtnSearchClick">
-                    <Grid Width="150">
-                        <materialDesign:PackIcon
-                            Kind="DatabaseOutline" Margin="0,2,0,0"
-                            />
-                        <TextBlock
-                            HorizontalAlignment="Center"
-                            Text="Requests"
-                            FontFamily="Microsoft YaHei UI"
-                            FontSize="16"
-                            Foreground="#FFE5E5F0"/>
-                    </Grid>
-                </Button>
-
-                <Button
                     ToolTip="Database security"
-                    x:Name="BtnSecurity"
-                    Margin="10"
+                    x:Name="BtnUsers"
+                    Margin="10 20 10 10"
                     Background="#FF41419E"
                     BorderBrush="#FF41419E"
                     Click="BtnSecurityClick">
@@ -189,7 +173,7 @@
                             />
                         <TextBlock
                             HorizontalAlignment="Center"
-                            Text="Security"
+                            Text="Users"
                             FontFamily="Microsoft YaHei UI"
                             FontSize="16"
                             Foreground="#FFE5E5F0"/>
@@ -198,11 +182,12 @@
 
                 <Button
                     ToolTip="Information about the program"
-                    x:Name="BtnInfo"
-                    Margin="10,90,10,10"
+                    x:Name="BtnProfile"
+                    Margin="10,20,10,10"
                     Background="#FF41419E"
                     BorderBrush="#FF41419E"
-                    Click="BtnInfoClick" BorderThickness="1">
+                    Click="BtnProfileClick"
+                    BorderThickness="1">
                     <Grid Width="150">
                         <materialDesign:PackIcon
                             Kind="InformationOutline"
@@ -210,7 +195,28 @@
                             />
                         <TextBlock
                             HorizontalAlignment="Center"
-                            Text="Info"
+                            Text="Profile"
+                            FontFamily="Microsoft YaHei UI"
+                            FontSize="16"
+                            Foreground="#FFE5E5F0"/>
+                    </Grid>
+                </Button>
+                <Button
+                    ToolTip="Log out of your account"
+                    x:Name="BtnLogOut"
+                    Margin="10,20,10,10"
+                    Background="#FF5D3536"
+                    BorderBrush="#FF41419E"
+                    Click="BtnLogOutClick"
+                    BorderThickness="1">
+                    <Grid Width="150">
+                        <materialDesign:PackIcon
+                            Kind="ExitToApp"
+                            Margin="0,2,0,0"
+                        />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            Text="Log out"
                             FontFamily="Microsoft YaHei UI"
                             FontSize="16"
                             Foreground="#FFE5E5F0"/>
@@ -240,14 +246,14 @@
                     <materialDesign:PackIcon Kind="Minus"/>
                 </Button>
                 <Button
-                    x:Name="BtnExit"
+                    x:Name="BtnExitPanel"
                     Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
                     Width="25"
                     Height="25"
                     Background="{x:Null}"
                     BorderBrush="{x:Null}"
                     Foreground="White"
-                    Click="BtnExit_Click">
+                    Click="BtnExitPanelClick">
                     <materialDesign:PackIcon Kind="Power"/>
                 </Button>
             </StackPanel>

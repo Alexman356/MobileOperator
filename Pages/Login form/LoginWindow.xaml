@@ -1,0 +1,124 @@
+﻿<Window x:Class="MobileOperator.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Icon="..\..\Images\logo.ico"
+        Title="Autorization" Height="500" Width="400" ResizeMode="NoResize" 
+        WindowStyle="None" WindowStartupLocation="CenterScreen">
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="227*"/>
+        </Grid.RowDefinitions>
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#FF3E3E89" Offset="0.8"/>
+                <GradientStop Color="#FF6565D9" Offset="0.1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid
+            x:Name="GridTopRow"
+            Grid.ColumnSpan="2"
+            Background="#FF36367E"
+            MouseDown="GridTopRowMouseDown">
+            <StackPanel
+                Orientation="Horizontal"
+                HorizontalAlignment="Right"
+                Margin="10,0">
+                <Button
+                    x:Name="BtnHide"
+                    Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                    Width="25"
+                    Height="25"
+                    Background="{x:Null}"
+                    BorderBrush="{x:Null}"
+                    Foreground="White"
+                    Click="BtnHideClick">
+                    <materialDesign:PackIcon Kind="Minus"/>
+                </Button>
+                <Button
+                    x:Name="BtnExit"
+                    Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                    Width="25"
+                    Height="25"
+                    Background="{x:Null}"
+                    BorderBrush="{x:Null}"
+                    Foreground="White"
+                    Click="BtnExitClick">
+                    <materialDesign:PackIcon Kind="Power"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <Border
+            Margin="15,30,15,15"
+            Background="#FF4C4CA4"
+            VerticalAlignment="Top"
+            Padding="30"
+            CornerRadius="15" Grid.Row="1">
+            <Border.Effect>
+                <DropShadowEffect
+                    BlurRadius="30"
+                    Color="#FF41419E"
+                    ShadowDepth="0">
+                </DropShadowEffect>
+            </Border.Effect>
+            <StackPanel>
+
+                <Image Source="C:\Users\Alex\Desktop\Study\Курсовая работа БСБД\MobileOperator WPF\MobileOperator\Images\logo.png"
+                           Width="100" Height="100"/>
+                <TextBlock
+                    Text="MOBILE OPERATOR"
+                    FontSize="25"
+                    FontFamily="Microsoft YaHei UI Light"
+                    HorizontalAlignment="Center"
+                    Foreground="#FFE5E5F0"
+                    Margin="0 0 0 20"/>
+
+                <DockPanel>
+                    <materialDesign:PackIcon
+                        Kind="AccountOutline"
+                        Foreground="#FFD4D4E8"
+                        Height="30"
+                        Width="25"
+                        Margin="0 16 10 0"
+                        />
+                    <TextBox
+                        x:Name="TxtBoxLogin"
+                        materialDesign:HintAssist.Hint="Enter the login" 
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        Foreground="White"
+                        FontFamily="Microsoft YaHei UI Light"
+                        FontSize="18"/>
+                </DockPanel>
+
+                <DockPanel>
+                    <materialDesign:PackIcon
+                        Kind="KeyOutline"
+                        Foreground="#FFD4D4E8"
+                        Height="30"
+                        Width="25"
+                        Margin="0 16 10 0"/>
+                    <PasswordBox 
+                        x:Name="TxtBoxPass"
+                        materialDesign:HintAssist.Hint="Enter the password"
+                        Foreground="White"
+                        FontFamily="Microsoft YaHei UI Light"
+                        FontSize="18"
+                        PasswordChar="*"
+                        Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" Cursor="IBeam" />
+                </DockPanel>
+                <Button
+                    x:Name="BtnAuth"
+                    Click="BtnAuthClick"
+                    Content="Log in"
+                    Margin="0 40 0 0"
+                    FontFamily="Microsoft YaHei UI"
+                    Background="#FF36368F"
+                    BorderBrush="#FF6262D4"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

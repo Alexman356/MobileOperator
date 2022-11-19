@@ -7,57 +7,95 @@ namespace MobileOperator
 {
     public partial class EditUserPage : Page
     {
-        private User CurrentUser;
-        public EditUserPage(User selectedUser)
+        public EditUserPage(UserPage userPage, User selectedUser)
         {
             InitializeComponent();
             CurrentUser = selectedUser;
             DataContext = selectedUser;
+            UserPage = userPage;
+
+            if (CurrentUser.Role == "Оператор")
+            {
+                CmbBoxRole.SelectedIndex = 0;
+            }
+
+            if (CurrentUser.Role == "Администратор")
+            {
+                CmbBoxRole.SelectedIndex = 1;
+            }
+
+            if (CurrentUser.Role == "Абонент")
+            {
+                CmbBoxRole.SelectedIndex = 2;
+            }
         }
-        
+
+        private Validator Validator { get; }
+
+        private User CurrentUser { get; }
+
+        private UserPage UserPage { get; }
+
         private void BtnSaveUserClick(object sender, RoutedEventArgs e)
         {
-            CheckingEnteredData();
-            
+            if (string.IsNullOrWhiteSpace(CurrentUser.Login))
+            {
+                MessageBox.Show("Incorrect login value entered!");
+
+                return;
+            }
+
+            if (Validator.LoginIsExist(TxtBoxLogin.Text))
+            {
+                MessageBox.Show("The user with the entered username already exists!");
+
+                return;
+            }
+
+            switch (CmbBoxRole.SelectedIndex)
+            {
+                case 0:
+                {
+                    CurrentUser.Role = "Оператор";
+
+                    break;
+                }
+
+                case 1:
+                {
+                    CurrentUser.Role = "Администратор";
+
+                    break;
+                }
+
+                case 2:
+                {
+                    CurrentUser.Role = "Абонент";
+
+                    break;
+                }
+            }
+
             try
             {
                 Context.Get().SaveChanges();
-                MessageBox.Show("Пользователь отредактирован!");
-                NavigationService.Navigate(new UserPage());
+                MessageBox.Show("The user has been edited!");
+                GoToPage(UserPage);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message.ToString());
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void BtnBackUserClick(object sender, RoutedEventArgs e)
         {
-            Context.Set(null);
-            NavigationService.Navigate(new UserPage());
+            GoToPage(UserPage);
         }
 
-        private void CheckingEnteredData()
+        private void GoToPage(Page page)
         {
-            StringBuilder errors = new StringBuilder();
-
-            if (string.IsNullOrWhiteSpace(CurrentUser.Login))
-            {
-                errors.AppendLine("Incorrect login value entered!");//TODO Fix
-            }
-
-            if (CurrentUser.Role != "Администратор" ||
-                CurrentUser.Role != "Оператор" ||
-                CurrentUser.Role != "Абонент")//TODO Fix
-            {
-                errors.AppendLine("Incorrect value entered!");
-            }
-
-            if (errors.Length > 0)
-            {
-                MessageBox.Show(errors.ToString());
-                return;
-            }
+            NavigationService.Navigate(page);
         }
     }
 }

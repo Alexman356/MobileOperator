@@ -81,13 +81,14 @@
         </Grid>
         <Grid Grid.Row="3">
             <DataGrid
-                    IsReadOnly="True"
-                    x:Name="DGAbonents"
-                    AutoGenerateColumns="False"
-                    VerticalGridLinesBrush="#FFABABAB" 
-                    HorizontalGridLinesBrush="#FFABABAB"
-                    GridLinesVisibility="All"
-                    Background="#FFD0D4E8">
+                VirtualizingStackPanel.IsVirtualizing="False"
+                IsReadOnly="True"
+                x:Name="DGAbonents"
+                AutoGenerateColumns="False"
+                VerticalGridLinesBrush="#FFABABAB" 
+                HorizontalGridLinesBrush="#FFABABAB"
+                GridLinesVisibility="All"
+                Background="#FFD0D4E8">
                 <DataGrid.Resources>
                     <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                         <Setter Property="Background" Value="#FF4C4CA4" />
@@ -132,6 +133,10 @@
                     <DataGridTextColumn 
                         Header="Email"
                         Binding="{Binding Person.Email}"
+                        Width="100"/>
+                    <DataGridTextColumn 
+                        Header="Login"
+                        Binding="{Binding User.Login}"
                         Width="100"/>
                 </DataGrid.Columns>
             </DataGrid>
