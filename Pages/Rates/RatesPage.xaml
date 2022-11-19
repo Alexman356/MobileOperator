@@ -17,7 +17,7 @@
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="22*"/>
-            <RowDefinition Height="27*"/>
+            <RowDefinition x:Name="RowDefinitionButton" Height="27*"/>
             <RowDefinition Height="27*"/>
             <RowDefinition Height="176*"/>
         </Grid.RowDefinitions>
@@ -32,10 +32,10 @@
                 Foreground="#FFE5E5F0" Margin="335,11,335,1">
             </TextBlock>
         </Grid>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" x:Name="GridRatePage">
             <Border>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Border Margin="0,0,10,0">
+                    <Border x:Name="BdrAddRate" Margin="0,0,10,0">
                         <Button
                             x:Name="BtnAddRate"
                             Click="BtnAddRateClick"
@@ -55,7 +55,7 @@
                             </StackPanel>
                         </Button>
                     </Border>
-                    <Border Margin="0,0,10,0">
+                    <Border x:Name="BdrEditRate" Margin="0,0,10,0">
                         <Button
                             x:Name="BtnEditRate"
                             Click="BtnEditRateClick"
@@ -75,7 +75,7 @@
                             </StackPanel>
                         </Button>
                     </Border>
-                    <Border>
+                    <Border x:Name="BdrDeleteRate">
                         <Button
                             x:Name="BtnDeleteRate"
                             Click="BtnDeleteRateClick"

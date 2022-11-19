@@ -6,13 +6,12 @@ namespace MobileOperator
 {
     public partial class EditAbonentPage : Page
     {
-        private Abonent CurrentAbonent;
-
-        public EditAbonentPage(Abonent selectedAbonent)
+        public EditAbonentPage(AbonentsPage abonentsPage, Abonent selectedAbonent)
         {
             InitializeComponent();
             DataContext = selectedAbonent;
             CurrentAbonent = selectedAbonent;
+            AbonentsPage = abonentsPage;
             Validator = new Validator();
 
             if (CurrentAbonent.Person.Gender == "Мужской")
@@ -26,12 +25,15 @@ namespace MobileOperator
             }
         }
 
+        private Abonent CurrentAbonent { get; }
+
+        private AbonentsPage AbonentsPage { get; set; }
+
         private Validator Validator { get; }
 
         private void BtnBackPageClick(object sender, RoutedEventArgs e)
         {
-            Context.Set(null);
-            NavigationService.Navigate(new AbonentsPage());
+            GoToAbonentsPage(AbonentsPage);
         }
 
         private void BtnSaveDataClick(object sender, RoutedEventArgs e)
@@ -55,12 +57,18 @@ namespace MobileOperator
             {
                 Context.Get().SaveChanges();
                 MessageBox.Show("Абонент отредактирован!");
-                NavigationService.Navigate(new AbonentsPage());
+                AbonentsPage = new AbonentsPage();
+                GoToAbonentsPage(AbonentsPage);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void GoToAbonentsPage(Page abonentsPage)
+        {
+            NavigationService.Navigate(abonentsPage);
         }
     }
 }

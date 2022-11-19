@@ -1,26 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace MobileOperator
 {
-    public partial class ChooseAbonentForNumber : Page
+    public partial class ChooseAbonentForNumberPage : Page
     {
-        public ChooseAbonentForNumber(Contract selectedContract)
+        public ChooseAbonentForNumberPage(ContractsPage contractsPage, Contract selectedContract)
         {
             InitializeComponent();
             DGAbonents.ItemsSource = Context.Get().Abonents.ToList();
-            
             selectedContract.Status = true;
-            selectedContract.employee_ID = EmployeeIdentity.employee_ID; //TODO Разграничение прав
+            selectedContract.employee_ID = EmployeeIdentity.employee_ID;
             selectedContract.Date = DateTime.Now;
+            ContractsPage = contractsPage;
             CurrentContract = selectedContract;
             DataContext = selectedContract;
 
-
             IQueryable<string> numbersForHide = Context.Get().Contracts
-               .Select(contract => contract.Number_telephone);
+                .Select(contract => contract.Number_telephone);
 
             IQueryable<Number> numberForShow = Context.Get().Numbers
                 .Where(number => !numbersForHide.Contains(number.Number_telephone));
@@ -28,7 +28,9 @@ namespace MobileOperator
             DGNumbers.ItemsSource = numberForShow.ToList();
         }
 
-        private Contract CurrentContract { get; set; }
+        private ContractsPage ContractsPage { get; }
+
+        private Contract CurrentContract { get; }
 
         private void BtnSaveContractClick(object sender, RoutedEventArgs e)
         {
@@ -59,12 +61,17 @@ namespace MobileOperator
             var numberPhone = Context.Get().Numbers
                 .SingleOrDefault(numberTel => numberTel.Number_telephone == CurrentContract.Number_telephone);
 
-            NavigationService.Navigate(new ChooseRateForContract(numberPhone));
+            GoToPage(new ChooseRateForContract(ContractsPage, numberPhone));
         }
 
         private void BtnBackPageClick(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new ContractsPage());
+            GoToPage(ContractsPage);
+        }
+
+        private void GoToPage(Page page)
+        {
+            NavigationService.Navigate(page);
         }
 
         private void CmbBoxAbonentSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -79,7 +86,7 @@ namespace MobileOperator
         {
             if (CmbBoxAbonent.SelectedIndex == -1)
             {
-                MessageBox.Show("Выберите фильтр поиска");
+                MessageBox.Show("Select a search filter");
 
                 return;
             }
@@ -91,9 +98,10 @@ namespace MobileOperator
 
         private void SearchAbonent(string text)
         {
-            foreach (var abonent in Context.Get().Abonents)
+            foreach (var abonent in DGAbonents.ItemsSource as List<Abonent>)
             {
-                ChangeRowVisible(abonent, RowIsContainsText(abonent, text));
+                var rowIsContainsText = RowIsContainsText(abonent, text);
+                ChangeRowVisible(abonent, rowIsContainsText);
             }
         }
 
@@ -102,28 +110,28 @@ namespace MobileOperator
             switch (CmbBoxAbonent.SelectedIndex)
             {
                 case 0:
-                    {
-                        return abonent.abonent_ID.ToString().Contains(text);
-                    }
+                {
+                    return abonent.abonent_ID.ToString().Contains(text);
+                }
                 case 1:
-                    {
-                        return abonent.Person.Birthdate.ToString().Contains(text);
-                    }
+                {
+                    return abonent.Person.Birthdate_s.Contains(text);
+                }
                 case 2:
-                    {
-                        return abonent.Person.Number_passport.Contains(text);
-                    }
+                {
+                    return abonent.Person.Number_passport.Contains(text);
+                }
 
                 default:
-                    {
-                        return false;
-                    }
+                {
+                    return false;
+                }
             }
         }
 
         private void ChangeRowVisible(Abonent row, bool isToShow)
         {
-            var itemContainer = GetItemContainer(row);
+            var itemContainer = DGAbonents.ItemContainerGenerator.ContainerFromItem(row);
 
             if (!(itemContainer is DataGridRow dataGridRow))
             {
@@ -139,18 +147,6 @@ namespace MobileOperator
             {
                 dataGridRow.Visibility = Visibility.Collapsed;
             }
-        }
-
-        private DependencyObject GetItemContainer(Abonent row)
-        {
-            var abonentsForHide = Context.Get().Abonents
-                .Where(abonent => abonent.abonent_ID == row.abonent_ID)
-                .ToList()
-                .FirstOrDefault();
-
-            var itemContainer = DGAbonents.ItemContainerGenerator.ContainerFromItem(abonentsForHide);
-
-            return itemContainer;
         }
     }
 }

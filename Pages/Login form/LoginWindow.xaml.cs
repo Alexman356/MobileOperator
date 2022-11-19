@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
@@ -56,6 +55,9 @@ namespace MobileOperator
                 return;
             }
 
+            TxtBoxLogin.Text = "";
+            TxtBoxPass.Password = "";
+
             AuthorizeUser(identifiedUser);
         }
 
@@ -65,38 +67,94 @@ namespace MobileOperator
             {
                 case "Администратор":
                 {
-                    AuthorizeEmployee(authenticatedUser);
-                    Hide();
-                    new MainWindow().Show();//TODO
+                    InitPagesForAdmin(authenticatedUser);
 
                     break;
                 }
 
                 case "Оператор":
                 {
-                    AuthorizeEmployee(authenticatedUser);
-                    Hide();
-                    new MainWindow().Show();//TODO
+                    InitPagesForOperator(authenticatedUser);
 
                     break;
                 }
 
                 case "Абонент":
                 {
-                    AuthorizeAbonent(authenticatedUser);
-                    Hide();
-                    new MainWindow().Show();//TODO
+                    InitPagesForAbonent(authenticatedUser);
 
                     break;
                 }
 
                 default:
                 {
-                    MessageBox.Show("Ты кто такой, а?");
+                    MessageBox.Show("Please contact your administrator with this error");
 
                     return;
                 }
             }
+        }
+
+        private void InitPagesForAbonent(User authenticatedUser)
+        {
+            AuthorizeAbonent(authenticatedUser);
+
+            var pages = new PagesModel
+            {
+                Contracts = new ContractsPage(),
+                Rates = new RatesPage(),
+                Profile = new ProfilePage(),
+                LoginWindow = this,
+            };
+            pages.Rates.GridRatePage.Visibility = Visibility.Collapsed;
+            pages.Rates.RowDefinitionButton.Height = new GridLength(1.0, GridUnitType.Star);
+            pages.Contracts.BdrDelContract.Visibility = Visibility.Collapsed;
+            pages.Contracts.BdrAddNumber.Visibility = Visibility.Collapsed;
+            pages.Contracts.BdrAddContract.Visibility = Visibility.Collapsed;
+            var mainWindow = new MainWindow(pages);
+            mainWindow.BtnAbonents.Visibility = Visibility.Collapsed;
+            mainWindow.BtnEmployees.Visibility = Visibility.Collapsed;
+            mainWindow.BtnUsers.Visibility = Visibility.Collapsed;
+            Hide();
+            mainWindow.Show();
+        }
+
+        private void InitPagesForOperator(User authenticatedUser)
+        {
+            AuthorizeEmployee(authenticatedUser);
+            var pages = new PagesModel
+            {
+                Abonents = new AbonentsPage(),
+                Contracts = new ContractsPage(),
+                Rates = new RatesPage(),
+                Profile = new ProfilePage(),
+                LoginWindow = this,
+            };
+            pages.Rates.GridRatePage.Visibility = Visibility.Collapsed;
+            pages.Rates.RowDefinitionButton.Height = new GridLength(1.0, GridUnitType.Star);
+            var mainWindow = new MainWindow(pages);
+            mainWindow.BtnEmployees.Visibility = Visibility.Collapsed;
+            mainWindow.BtnUsers.Visibility = Visibility.Collapsed;
+            Hide();
+            mainWindow.Show();
+        }
+
+        private void InitPagesForAdmin(User authenticatedUser)
+        {
+            AuthorizeEmployee(authenticatedUser);
+            var pages = new PagesModel
+            {
+                Abonents = new AbonentsPage(),
+                Contracts = new ContractsPage(),
+                Employees = new EmployeesPage(),
+                Rates = new RatesPage(),
+                User = new UserPage(),
+                Profile = new ProfilePage(),
+                LoginWindow = this,
+            };
+            var mainWindow = new MainWindow(pages);
+            Hide();
+            mainWindow.Show();
         }
 
         private void AuthorizeEmployee(User authenticatedUser)
@@ -119,6 +177,7 @@ namespace MobileOperator
             var authenticatedPerson = Context.Get().Persons
                 .Single(person => person.person_ID == authenticatedAbonent.person_ID);
 
+            AbonentIdentity.abonent_ID = authenticatedAbonent.abonent_ID;
             SetUserIdentity(authenticatedPerson, authenticatedUser);
         }
 

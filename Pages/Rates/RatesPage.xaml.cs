@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,7 +27,7 @@ namespace MobileOperator
             }
             else
             {
-                MessageBox.Show("Выберите тариф");
+                MessageBox.Show("Select the rate to edit");
             }
         }
 
@@ -41,8 +42,8 @@ namespace MobileOperator
             var ratesForRemove = DGRate.SelectedItems.Cast<Rate>().ToList();
 
             var dialogResult = MessageBox.Show(
-                $"Вы точно хотите удалить следующие {ratesForRemove.Count()} элементов?",
-                "Внимание!",
+                $"You definitely want to remove the following {ratesForRemove.Count()} elements?",
+                "Attention!",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question);
 
@@ -52,7 +53,7 @@ namespace MobileOperator
                 {
                     Context.Get().Rates.RemoveRange(ratesForRemove);
                     Context.Get().SaveChanges();
-                    MessageBox.Show("Данные успешно удалены!");
+                    MessageBox.Show("The data has been successfully deleted!");
                     DGRate.ItemsSource = Context.Get().Rates.ToList();
                 }
                 catch(Exception ex)
@@ -79,9 +80,10 @@ namespace MobileOperator
 
         private void SearchRate(string text)
         {
-            foreach (var rate in Context.Get().Rates)
+            foreach (var rate in DGRate.ItemsSource as List<Rate>)
             {
-                ChangeRowVisible(rate, RowIsContainsText(rate, text));
+                var rowIsContainsText = RowIsContainsText(rate, text);
+                ChangeRowVisible(rate, rowIsContainsText);
             }
         }
 
@@ -98,6 +100,7 @@ namespace MobileOperator
                     {
                         return rate.Name_rate.ToLower().Contains(text);
                     }
+
                 default:
                     {
                         return false;
@@ -107,7 +110,7 @@ namespace MobileOperator
 
         private void ChangeRowVisible(Rate row, bool isToShow)
         {
-            var itemContainer = GetItemContainer(row);
+            var itemContainer = DGRate.ItemContainerGenerator.ContainerFromItem(row);
 
             if (!(itemContainer is DataGridRow dataGridRow))
             {
@@ -123,17 +126,6 @@ namespace MobileOperator
             {
                 dataGridRow.Visibility = Visibility.Collapsed;
             }
-        }
-
-        private DependencyObject GetItemContainer(Rate row)
-        {
-            var RatesForHide = Context.Get().Rates
-                .Where(rate => rate.Rate_ID == row.Rate_ID)
-                .ToList()
-                .FirstOrDefault();
-            var itemContainer = DGRate.ItemContainerGenerator.ContainerFromItem(RatesForHide);
-
-            return itemContainer;
         }
     }
 }

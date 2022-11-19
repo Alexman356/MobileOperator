@@ -6,7 +6,8 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Icon="..\..\Images\logo.ico"
-        Title="Autorization" Height="500" Width="400" ResizeMode="NoResize" WindowStyle="None">
+        Title="Autorization" Height="500" Width="400" ResizeMode="NoResize" 
+        WindowStyle="None" WindowStartupLocation="CenterScreen">
     <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="15*"/>

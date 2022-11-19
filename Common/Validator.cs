@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Linq;
+using System.Text;
 using System.Windows;
 
 namespace MobileOperator
@@ -123,6 +124,21 @@ namespace MobileOperator
 
                 return false;
             }
+
+            return true;
+        }
+
+        public bool LoginIsExist(string enteredLogin)
+        {
+            var logins = Context.Get().Users
+                .Where(user => user.Login == enteredLogin);
+
+            if (!logins.Any())
+            {
+                return false;
+            }
+
+            MessageBox.Show("Entered login is already occupied by another user");
 
             return true;
         }

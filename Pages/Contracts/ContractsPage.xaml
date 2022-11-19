@@ -35,10 +35,10 @@
         <Grid Grid.Row="1">
             <Border>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Border Margin="0,0,10,0">
+                    <Border x:Name="BdrAddContract" Margin="0,0,10,0">
                         <Button
-                            x:Name="AddContract"
-                            Click="AddContractClick"
+                            x:Name="BtnAddContract"
+                            Click="BtnAddContractClick"
                             Background="#FF41419E" 
                             FontFamily="Microsoft YaHei UI Light" 
                             FontSize="17" 
@@ -55,10 +55,10 @@
                             </StackPanel>
                         </Button>
                     </Border>
-                    <Border Margin="0,0,10,0">
+                    <Border x:Name="BdrAddNumber" Margin="0,0,10,0">
                         <Button
-                            x:Name="AddNumber"
-                            Click="AddNumberClick"
+                            x:Name="BtnAddNumber"
+                            Click="BtnAddNumberClick"
                             Background="#FF41419E" 
                             FontFamily="Microsoft YaHei UI Light" 
                             FontSize="17" 
@@ -77,8 +77,8 @@
                     </Border>
                     <Border Margin="0,0,10,0">
                         <Button
-                            x:Name="EditRate"
-                            Click="EditRateClick"
+                            x:Name="BtnEditRate"
+                            Click="BtnEditRateClick"
                             Background="#FF41419E" 
                             FontFamily="Microsoft YaHei UI Light" 
                             FontSize="17" 
@@ -95,7 +95,7 @@
                             </StackPanel>
                         </Button>
                     </Border>
-                    <Border>
+                    <Border x:Name="BdrDelContract">
                         <Button
                             x:Name="BtnDelContract"
                             Click="BtnDelContractClick"
@@ -166,6 +166,9 @@
                             <ComboBoxItem>
                                 <Run Text="Number telephone" Foreground="#FF4C4CA4"/>
                             </ComboBoxItem>
+                            <ComboBoxItem>
+                                <Run Text="Employee ID" Foreground="#FF4C4CA4"/>
+                            </ComboBoxItem>
                         </ComboBox>
                     </Border>
                     <Border
@@ -189,6 +192,7 @@
         <Grid Grid.Row="3">
             <DataGrid 
                 x:Name="DGContract"
+                VirtualizingStackPanel.IsVirtualizing="False"
                 AutoGenerateColumns="False"
                 VerticalGridLinesBrush="#FFABABAB" 
                 HorizontalGridLinesBrush="#FFABABAB"
@@ -205,17 +209,20 @@
 
                 </DataGrid.Resources>
                 <DataGrid.Columns>
-                    <DataGridTextColumn 
+                    <DataGridTextColumn
+                        x:Name="ColumnIdContract"
                         IsReadOnly="True"
                         Header="ID"
                         Binding="{Binding contract_ID}"
                         Width="50"/>
                     <DataGridTextColumn 
+                        x:Name="ColumnIdEmployee"
                         IsReadOnly="True"
                         Header="Employee ID"
                         Binding="{Binding employee_ID}"
                         Width="100"/>
                     <DataGridTextColumn
+                        x:Name="ColumnIdAbonent"
                         IsReadOnly="True"
                         Header="Abonent ID"
                         Binding="{Binding abonent_ID}"
@@ -233,7 +240,7 @@
                     <DataGridTextColumn
                         IsReadOnly="True"
                         Header="Date"
-                        Binding="{Binding Date}"
+                        Binding="{Binding Date_s}"
                         Width="130"/>
                     <DataGridCheckBoxColumn
                         x:Name="CheBoxStatus"

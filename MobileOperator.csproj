@@ -113,14 +113,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Pages\Contracts\AddContract.xaml.cs">
-      <DependentUpon>AddContract.xaml</DependentUpon>
+    <Compile Include="Pages\Contracts\AddContractPage.xaml.cs">
+      <DependentUpon>AddContractPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Contracts\ChooseAbonentForNumber.xaml.cs">
-      <DependentUpon>ChooseAbonentForNumber.xaml</DependentUpon>
+    <Compile Include="Pages\Contracts\ChooseAbonentForNumberPage.xaml.cs">
+      <DependentUpon>ChooseAbonentForNumberPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Contracts\ChooseRateForContract.xaml.cs">
-      <DependentUpon>ChooseRateForContract.xaml</DependentUpon>
+    <Compile Include="Pages\Contracts\ChooseRateForContractPage.xaml.cs">
+      <DependentUpon>ChooseRateForContractPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Login form\AbonentIdentity.cs" />
     <Compile Include="Pages\Login form\EmployeeIdentity.cs" />
@@ -133,6 +133,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Pages\PagesModel.cs" />
+    <Compile Include="Pages\Profile\ProfilePage.xaml.cs">
+      <DependentUpon>ProfilePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Rates\AddEditRatesPage.xaml.cs">
       <DependentUpon>AddEditRatesPage.xaml</DependentUpon>
     </Compile>
@@ -148,24 +151,21 @@
     <Compile Include="Pages\Rates\RatesPage.xaml.cs">
       <DependentUpon>RatesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Requests\RequestsPage.xaml.cs">
-      <DependentUpon>RequestsPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\Employees\EmployeesPage.xaml.cs">
       <DependentUpon>EmployeesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Abonents\AbonentsPage.xaml.cs">
       <DependentUpon>AbonentsPage.xaml</DependentUpon>
     </Compile>
-    <Page Include="Pages\Contracts\AddContract.xaml">
+    <Page Include="Pages\Contracts\AddContractPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Contracts\ChooseAbonentForNumber.xaml">
+    <Page Include="Pages\Contracts\ChooseAbonentForNumberPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Contracts\ChooseRateForContract.xaml">
+    <Page Include="Pages\Contracts\ChooseRateForContractPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -177,6 +177,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Pages\Profile\ProfilePage.xaml" />
     <Page Include="Pages\Rates\AddEditRatesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -194,10 +195,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Rates\RatesPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\Requests\RequestsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

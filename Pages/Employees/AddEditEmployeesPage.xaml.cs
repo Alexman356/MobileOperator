@@ -6,7 +6,7 @@ namespace MobileOperator
 {
     public partial class AddEditEmployeePage : Page
     {
-        public AddEditEmployeePage(Employee selectedEmployee)
+        public AddEditEmployeePage(EmployeesPage employeesPage, Employee selectedEmployee)
         {
             InitializeComponent();
 
@@ -15,14 +15,21 @@ namespace MobileOperator
                 selectedEmployee.Person = new Person();
                 selectedEmployee.User = new User();
                 TitleNameEmployee.Text = "Add employee";
+                BorderLogin.Visibility = Visibility.Visible;
+                BorderPass.Visibility = Visibility.Visible;
+                TbLogin.Visibility = Visibility.Visible;
+                TbPass.Visibility = Visibility.Visible;
             }
 
+            EmployeesPage = employeesPage;
             Validator = new Validator();
             CurrentEmployee = selectedEmployee;
             DataContext = selectedEmployee;
 
             InitCmb();
         }
+
+        private EmployeesPage EmployeesPage { get; set; }
 
         private Validator Validator { get; }
 
@@ -33,11 +40,16 @@ namespace MobileOperator
             if (!IsTextBoxNull()
                 || !Validator.IsValidPersonData(CurrentEmployee.Person)
                 || !Validator.IsValidEmployeeData(CurrentEmployee)
-                || !IsSelectIndexCmbBox())
+                || !IsSelectedIndexCmbBox())
             {
                 return;
             }
 
+            if (CurrentEmployee.employee_ID == null
+                && Validator.LoginIsExist(TxtBoxLogin.Text))
+            {
+                return;
+            }
 
             SetEmployeeDataFromCmb();
 
@@ -47,14 +59,14 @@ namespace MobileOperator
                 {
                     Context.Get().Employees.Add(CurrentEmployee);
                     Context.Get().SaveChanges();
-                    MessageBox.Show("Новый сотрудник добавлен");
-                    NavigationService.Navigate(new EmployeesPage());
+                    MessageBox.Show("A new employee has been added!");
+                    GoToPage(EmployeesPage);
                 }
                 else
                 {
                     Context.Get().SaveChanges();
-                    MessageBox.Show("Сотрудник отредактирован!");
-                    NavigationService.Navigate(new EmployeesPage());
+                    MessageBox.Show("The employee has been edited!");
+                    GoToPage(EmployeesPage);
                 }
             }
             catch (Exception ex)
@@ -65,11 +77,15 @@ namespace MobileOperator
 
         private void BtnBackPageClick(object sender, RoutedEventArgs e)
         {
-            Context.Set(null);
-            NavigationService.Navigate(new EmployeesPage());
+            GoToPage(EmployeesPage);
         }
 
-        private bool IsSelectIndexCmbBox()
+        private void GoToPage(Page page)
+        {
+            NavigationService.Navigate(page);
+        }
+
+        private bool IsSelectedIndexCmbBox()
         {
             if (CmbBoxGender.SelectedIndex == -1)
             {
@@ -151,9 +167,16 @@ namespace MobileOperator
                 || string.IsNullOrWhiteSpace(TxtBoxSerPas.Text)
                 || string.IsNullOrWhiteSpace(TxtBoxNumPas.Text)
                 || string.IsNullOrWhiteSpace(TxtBoxAddress.Text)
-                || string.IsNullOrWhiteSpace(TxtBoxSalary.Text)
-                || string.IsNullOrWhiteSpace(TxtBoxLogin.Text)
-                || string.IsNullOrWhiteSpace(TxtBoxPass.Text))
+                || string.IsNullOrWhiteSpace(TxtBoxSalary.Text))
+            {
+                MessageBox.Show("Not all fields are filled in!");
+
+                return false;
+            }
+
+            if (CurrentEmployee.employee_ID == null 
+                && (string.IsNullOrWhiteSpace(TxtBoxLogin.Text)
+                || string.IsNullOrWhiteSpace(TxtBoxPass.Text)))
             {
                 MessageBox.Show("Not all fields are filled in!");
 

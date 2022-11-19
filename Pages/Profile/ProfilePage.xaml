@@ -1,0 +1,338 @@
+﻿<Page x:Class="MobileOperator.ProfilePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="570" d:DesignWidth="800"
+      Title="ProfileUser">
+
+    <Grid Background="#FF4C4CA4">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="79*"/>
+            <ColumnDefinition Width="121*"/>
+            <ColumnDefinition Width="43*"/>
+            <ColumnDefinition Width="157*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Frame x:Name="PageProfile" NavigationUIVisibility="Hidden" Grid.ColumnSpan="4" Grid.RowSpan="11"/>
+        <Grid Grid.Row="2">
+            <TextBlock 
+                Text="Last name:"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontFamily="Microsoft YaHei UI Light"
+                Foreground="#FFE5E5F0" Margin="20,21,42,9" TextDecorations="Underline"/>
+        </Grid>
+        <Grid Grid.Row="3">
+            <TextBlock 
+                Text="First name:"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontFamily="Microsoft YaHei UI Light"
+                Foreground="#FFE5E5F0" Margin="20,21,42,9" TextDecorations="Underline"/>
+        </Grid>
+        <Grid Grid.Row="4">
+            <TextBlock 
+                Text="Middle name:"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontFamily="Microsoft YaHei UI Light"
+                Foreground="#FFE5E5F0" Margin="20,21,32,9" TextDecorations="Underline"/>
+        </Grid>
+        <Grid Grid.Row="5">
+            <TextBlock 
+                Text="Birthdate:"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontFamily="Microsoft YaHei UI Light"
+                Foreground="#FFE5E5F0" Margin="20,21,46,9" TextDecorations="Underline"/>
+        </Grid>
+        <Grid Grid.Row="6">
+            <TextBlock 
+                Text="Gender:"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontFamily="Microsoft YaHei UI Light"
+                Foreground="#FFE5E5F0" Margin="20,21,52,9" TextDecorations="Underline"/>
+        </Grid>
+        <Grid Grid.Row="7">
+            <TextBlock 
+                Text="Passport series:"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontFamily="Microsoft YaHei UI Light"
+                Foreground="#FFE5E5F0" Margin="20,21,26,9" TextDecorations="Underline"/>
+        </Grid>
+        <Grid Grid.Row="8">
+            <TextBlock 
+                Text="Passport number:"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontFamily="Microsoft YaHei UI Light"
+                Foreground="#FFE5E5F0" Margin="20,21,0,9" TextDecorations="Underline"/>
+        </Grid>
+        <Grid Grid.Column="2" Grid.Row="2">
+            <TextBlock 
+                Text="Address:"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontFamily="Microsoft YaHei UI Light"
+                Foreground="#FFE5E5F0" Margin="10,21,0,9" TextDecorations="Underline"/>
+        </Grid>
+        <Grid Grid.Column="2" Grid.Row="4">
+            <TextBlock 
+                Text="Email:"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontFamily="Microsoft YaHei UI Light"
+                Foreground="#FFE5E5F0" Margin="10,21,0,9" TextDecorations="Underline"/>
+        </Grid>
+        <Grid Grid.Column="2" Grid.Row="5">
+            <TextBlock 
+                Text="Login:"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontFamily="Microsoft YaHei UI Light"
+                Foreground="#FFE5E5F0" Margin="10,21,0,9" TextDecorations="Underline"/>
+        </Grid>
+        <Grid Grid.Column="2" Grid.Row="6">
+            <TextBlock 
+                x:Name="TbSalary"
+                Text="Salary:"
+                Visibility="Collapsed"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontFamily="Microsoft YaHei UI Light"
+                Foreground="#FFE5E5F0" Margin="10,21,0,9" TextDecorations="Underline"/>
+        </Grid>
+        <Grid Grid.Column="2" Grid.Row="7">
+            <TextBlock 
+                x:Name="TbPost"
+                Text="Post:"
+                Visibility="Collapsed"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontFamily="Microsoft YaHei UI Light"
+                Foreground="#FFE5E5F0" Margin="10,21,0,9" TextDecorations="Underline"/>
+        </Grid>
+        <Grid Grid.Column="2" Grid.Row="8">
+            <TextBlock 
+                x:Name="TbPass"
+                Text="New pass:"
+                Visibility="Collapsed"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontFamily="Microsoft YaHei UI Light"
+                Foreground="#FFE5E5F0" Margin="10,21,0,9" TextDecorations="Underline"/>
+        </Grid>
+
+
+        <Grid Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="3">
+            <Border Margin="0,-65,0,24">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,22,0,-22">
+                    <Border Margin="0,0,10,0">
+                    </Border>
+                    <Border Margin="0,0,10,0">
+                        <Button
+                            x:Name="BtnChangePass"
+                            Click="BtnChangePassClick"
+                            Background="#FF41419E" 
+                            FontFamily="Microsoft YaHei UI Light" 
+                            FontSize="17" 
+                            Foreground="#DDFFFFFF"
+                            BorderBrush="#DDA0A0A0"
+                            Margin="50,0,0,0">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon 
+                                    Kind="KeyOutline" 
+                                    Margin="0,3,10,0"
+                                    Foreground="#FFD1D1EE"/>
+                                <TextBlock 
+                                    Text="Change password" 
+                                    HorizontalAlignment="Right"/>
+                            </StackPanel>
+                        </Button>
+                    </Border>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="0" Grid.ColumnSpan="4" Background="#FF36367E">
+            <TextBlock 
+                x:Name="TitleNameProfile"
+                Text="Profile"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="27"
+                FontFamily="Microsoft YaHei UI Light"
+                Foreground="#FFE5E5F0"/>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="2">
+            <TextBlock 
+                x:Name="LastNameTb"
+                Text=""
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontFamily="Microsoft YaHei UI Light"
+                Foreground="#FFE5E5F0" Margin="32,21,32,9"/>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="3">
+            <TextBlock 
+                x:Name="FirstNameTb"
+                Text=""
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontFamily="Microsoft YaHei UI Light"
+                Foreground="#FFE5E5F0" Margin="32,21,32,9"/>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="4">
+            <TextBlock 
+                x:Name="MiddleNameTb"
+                Text=""
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontFamily="Microsoft YaHei UI Light"
+                Foreground="#FFE5E5F0" Margin="32,21,32,9"/>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="5">
+            <TextBlock 
+                x:Name="BirthdateTb"
+                Text=""
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontFamily="Microsoft YaHei UI Light"
+                Foreground="#FFE5E5F0" Margin="32,21,32,9"/>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="6">
+            <TextBlock 
+                x:Name="GenderTb"
+                Text=""
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontFamily="Microsoft YaHei UI Light"
+                Foreground="#FFE5E5F0" Margin="32,21,32,9"/>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="7">
+            <TextBlock 
+                x:Name="PasSerTb"
+                Text=""
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontFamily="Microsoft YaHei UI Light"
+                Foreground="#FFE5E5F0" Margin="32,21,32,9"/>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="8">
+            <TextBlock 
+                x:Name="PasNumTb"
+                Text=""
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontFamily="Microsoft YaHei UI Light"
+                Foreground="#FFE5E5F0" Margin="32,21,32,9" Cursor=""/>
+        </Grid>
+
+        <Grid Grid.Column="3" Grid.Row="1" Margin="0,46,0,8" Grid.RowSpan="3">
+            <TextBlock 
+                x:Name="AddressTb"
+                Text=""
+                TextWrapping ="Wrap"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                FontSize="16"
+                FontFamily="Microsoft YaHei UI Light"
+                Foreground="#FFE5E5F0" Margin="32,21,32,9"/>
+        </Grid>
+        <Grid Grid.Column="3" Grid.Row="4">
+            <TextBlock 
+                x:Name="EmailTb"
+                Text=""
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontFamily="Microsoft YaHei UI Light"
+                Foreground="#FFE5E5F0" Margin="32,21,32,9"/>
+        </Grid>
+        <Grid Grid.Column="3" Grid.Row="5">
+            <TextBlock 
+                x:Name="LoginTb"
+                Text=""
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontFamily="Microsoft YaHei UI Light"
+                Foreground="#FFE5E5F0" Margin="32,21,32,9"/>
+        </Grid>
+        <Grid Grid.Column="3" Grid.Row="6">
+            <TextBlock 
+                x:Name="SalaryTb"
+                Text=""
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontFamily="Microsoft YaHei UI Light"
+                Foreground="#FFE5E5F0" Margin="32,21,32,9"/>
+
+        </Grid>
+        <Grid Grid.Column="3" Grid.Row="7">
+            <TextBlock 
+                x:Name="PostTb"
+                Text=""
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontFamily="Microsoft YaHei UI Light"
+                Foreground="#FFE5E5F0" Margin="32,21,32,9"/>
+        </Grid>
+        <Grid Grid.Column="3" Grid.Row="8">
+            <PasswordBox 
+                x:Name="PassBox"
+                Visibility="Collapsed"
+                materialDesign:HintAssist.Hint="Enter the password"
+                Foreground="White"
+                FontFamily="Microsoft YaHei UI Light"
+                FontSize="15"
+                Margin="10 0 0 0"
+                HorizontalAlignment="Left"
+                Height="40"
+                Width="200"
+                PasswordChar="*"
+                Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" Cursor="IBeam" />
+        </Grid>
+        
+    </Grid>
+</Page>
+

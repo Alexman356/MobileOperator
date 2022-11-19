@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace MobileOperator
 {
-    public partial class AddEditRatesPage : Page//TODO Проверка на буквы в стоимости и т.п.
+    public partial class AddEditRatesPage : Page
     {
         private Rate CurrentRate;
 
@@ -39,14 +38,14 @@ namespace MobileOperator
                 if (CurrentRate.Rate_ID != 0)
                 {
                     Context.Get().SaveChanges();
-                    MessageBox.Show("Тариф отредактирован!");
+                    MessageBox.Show("The rate has been edited!");
                     GoToRatesPage();
                 }
                 else
                 {
                     Context.Get().Rates.Add(CurrentRate);
                     Context.Get().SaveChanges();
-                    MessageBox.Show("Тариф добавлен!");
+                    MessageBox.Show("The rate has been added!");
                     GoToRatesPage();
                 }
             }

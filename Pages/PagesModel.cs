@@ -14,5 +14,9 @@ namespace MobileOperator
         public RatesPage Rates { get; set; }
 
         public UserPage User { get; set; }
+
+        public ProfilePage Profile { get; set; }
+
+        public LoginWindow LoginWindow { get; set; }
     }
 }

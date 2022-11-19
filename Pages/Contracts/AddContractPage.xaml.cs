@@ -7,9 +7,9 @@ using System.Windows.Controls;
 
 namespace MobileOperator
 {
-    public partial class AddContract : Page
+    public partial class AddContractPage : Page
     {
-        public AddContract(Contract selectedContract)
+        public AddContractPage(ContractsPage contractsPage, Contract selectedContract)
         {
             InitializeComponent();
 
@@ -21,6 +21,7 @@ namespace MobileOperator
             selectedContract.Abonent.User.Role = "Абонент";
             selectedContract.Date = DateTime.Now;
 
+            ContractsPage = contractsPage;
             CurrentContract = selectedContract;
             DataContext = selectedContract;
             Validator = new Validator();
@@ -36,19 +37,21 @@ namespace MobileOperator
 
         private Validator Validator { get; }
 
+        private ContractsPage ContractsPage { get; }
+
         private Contract CurrentContract { get; }
 
         private void BtnBackPageClick(object sender, RoutedEventArgs e)
         {
-            Context.Set(null);
-            NavigationService.Navigate(new ContractsPage());
+            GoToPage(ContractsPage);
         }
 
         private void BtnSaveContractClick(object sender, RoutedEventArgs e)
         {
             if (!IsTextBoxNull()
                 || !Validator.IsValidPersonData(CurrentContract.Abonent.Person)
-                || !IsSelectIndexCmbBox())
+                || !IsSelectIndexCmbBox()
+                || Validator.LoginIsExist(TxtBoxLogin.Text))
             {
                 return;
             }
@@ -69,17 +72,22 @@ namespace MobileOperator
             {
                 Context.Get().Contracts.Add(CurrentContract);
                 Context.Get().SaveChanges();
-                MessageBox.Show("Новый договор добавлен");
+                MessageBox.Show("New contract added!");
 
                 var numberPhone = Context.Get().Numbers
                     .SingleOrDefault(number => number.Number_telephone == CurrentContract.Number_telephone);
 
-                NavigationService.Navigate(new ChooseRateForContract(numberPhone));
+                GoToPage(new ChooseRateForContract(ContractsPage, numberPhone));
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
+        }
+
+        private void GoToPage(Page page)
+        {
+            NavigationService.Navigate(page);
         }
 
         private bool IsSelectIndexCmbBox()
