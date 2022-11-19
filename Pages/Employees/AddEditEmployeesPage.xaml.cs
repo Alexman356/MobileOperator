@@ -9,7 +9,6 @@ namespace MobileOperator
         public AddEditEmployeePage(EmployeesPage employeesPage, Employee selectedEmployee)
         {
             InitializeComponent();
-
             if (selectedEmployee.Person == null)
             {
                 selectedEmployee.Person = new Person();
