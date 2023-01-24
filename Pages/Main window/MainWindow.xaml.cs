@@ -61,6 +61,7 @@ namespace MobileOperator
 
         private void BtnSecurityClick(object sender, RoutedEventArgs e)
         {
+            Pages.User.DGUser.ItemsSource = Context.Get().Users.ToList();
             PageStart.Content = Pages.User;
         }
 

@@ -67,7 +67,7 @@
             </Border.Effect>
             <StackPanel>
 
-                <Image Source="C:\Users\Alex\Desktop\Study\Курсовая работа БСБД\MobileOperator WPF\MobileOperator\Images\logo.png"
+                <Image Source="..\..\Images\logo.png"
                            Width="100" Height="100"/>
                 <TextBlock
                     Text="MOBILE OPERATOR"
